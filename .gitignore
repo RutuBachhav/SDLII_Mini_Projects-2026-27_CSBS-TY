@@ -1,0 +1,14 @@
+# Developer notes and working files - not part of the submission
+dev/
+
+# NetBeans build output
+build/
+dist/
+nbproject/private/
+
+# OS and editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+*~
+*.swp
