@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    DeadlineBuddy persistence unit.
+
+    NetBeans keeps this file at src/conf/persistence.xml; the Ant build's
+    -copy-persistence-xml target copies it to
+    build/web/WEB-INF/classes/META-INF/persistence.xml, which is where the
+    container looks for it. Do not move it into src/java.
+
+    RESOURCE_LOCAL, not JTA. The application manages its own transactions in
+    com.util.Jpa, which means there is nothing to configure in GlassFish before
+    deploying - no JDBC connection pool, no JNDI resource, no server restart.
+    The driver travels in WEB-INF/lib.
+
+    The jdbc.* values below are defaults so that the unit is valid and complete
+    on its own. At startup com.util.Jpa overrides all four from com.util.Config,
+    which reads a JVM system property, then an environment variable, then
+    WEB-INF/classes/deadlinebuddy.properties. Change the password there, or set
+    DEADLINEBUDDY_JDBC_PASSWORD, rather than editing this file.
+-->
+<persistence version="3.0"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                                 https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <persistence-unit name="DeadlineBuddyPU" transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <class>com.entity.User</class>
+        <class>com.entity.Subject</class>
+        <class>com.entity.DeadlineTask</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <shared-cache-mode>NONE</shared-cache-mode>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/deadlinebuddy_db?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Kolkata"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+
+            <!-- db/schema.sql owns the schema; EclipseLink must not touch it. -->
+            <property name="eclipselink.ddl-generation" value="none"/>
+
+            <property name="eclipselink.jdbc.connections.min" value="2"/>
+            <property name="eclipselink.jdbc.connections.max" value="20"/>
+            <!-- Drop a connection that MySQL closed under us rather than failing. -->
+            <property name="eclipselink.jdbc.exclusive-connection.mode" value="Transactional"/>
+
+            <property name="eclipselink.logging.level" value="WARNING"/>
+            <property name="eclipselink.logging.level.sql" value="WARNING"/>
+            <property name="eclipselink.logging.parameters" value="false"/>
+            <property name="eclipselink.target-database" value="MySQL"/>
+            <property name="eclipselink.weaving" value="false"/>
+        </properties>
+
+    </persistence-unit>
+</persistence>

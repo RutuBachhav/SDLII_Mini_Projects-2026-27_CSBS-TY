@@ -1,0 +1,13 @@
+<%--
+    Closes the page. No page or taglib directives here either - see head.jspf.
+--%>
+    <footer class="app-foot">
+        <span>DeadlineBuddy &middot; assignments, practicals, submissions and exams in one place</span>
+        <span>Servlets, JSP, JPA and MySQL on GlassFish</span>
+    </footer>
+</main>
+
+<script src="<c:url value='/assets/vendor/bootstrap.bundle.min.js'/>"></script>
+<script src="<c:url value='/assets/js/app.js'/>"></script>
+</body>
+</html>
