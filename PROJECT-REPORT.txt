@@ -1,0 +1,685 @@
+PROJECT REPORT
+==============
+
+Project Title
+-------------
+Cloth Factory Inventory Management System
+
+Project Type
+------------
+College-level web application for inventory and stock management in a
+cloth-manufacturing environment.
+
+
+1. ABSTRACT
+-----------
+
+The Cloth Factory Inventory Management System is a Java-based web application
+developed to manage products, raw materials, fabrics, finished goods,
+suppliers, and stock movements in a cloth factory.
+
+The application provides a centralized system for maintaining product
+information, tracking available inventory, recording stock-in and stock-out
+transactions, monitoring low-stock products, and displaying inventory reports.
+It is designed as a learning project that demonstrates core Java web
+development concepts using Jakarta Servlets, JSP, JDBC, MySQL, Maven, and
+Apache Tomcat.
+
+The current implementation focuses on product management, supplier management,
+inventory transactions, dashboard information, reports, database connectivity,
+and a normalized database foundation. Authentication, purchasing workflows,
+production management, and authorization are planned for later development
+phases.
+
+
+2. INTRODUCTION
+---------------
+
+Cloth factories handle different types of inventory, including raw materials,
+chemicals, fabrics, semi-finished goods, and finished products. Manual
+inventory management can lead to inaccurate stock counts, difficulty tracking
+transactions, delayed identification of low-stock items, and inconsistent
+record keeping.
+
+This project provides a web-based solution for managing these activities. It
+allows factory personnel to maintain a product catalog, store supplier
+details, record inventory movements, and view stock information through a
+dashboard and reports.
+
+The system is suitable for a college practical project, demonstration, and
+viva examination because it covers database design, MVC-style web
+architecture, JDBC programming, transaction handling, form processing, and
+deployment of a Java WAR application.
+
+
+3. PROBLEM STATEMENT
+--------------------
+
+Cloth factories need to track the availability and movement of different
+materials and products. If inventory is managed manually or in disconnected
+files, the following problems may occur:
+
+- Incorrect stock quantities
+- Difficulty identifying low-stock products
+- Missing or incomplete transaction history
+- Duplicate or inconsistent supplier records
+- Risk of issuing more stock than is available
+- Slow preparation of inventory reports
+- Difficulty maintaining a central and reliable product catalog
+
+The proposed system addresses these problems by storing inventory data in a
+central MySQL database and exposing it through a browser-based application.
+
+
+4. PROJECT OBJECTIVES
+---------------------
+
+The main objectives of the project are:
+
+- Create a centralized inventory management system for a cloth factory.
+- Maintain product details, categories, units, prices, and stock levels.
+- Manage supplier contact and business information.
+- Record stock-in, stock-out, and adjustment transactions.
+- Prevent stock from becoming negative.
+- Maintain an auditable history of inventory movements.
+- Display low-stock products and inventory summaries.
+- Provide a database health-check endpoint.
+- Demonstrate Java enterprise web development using core technologies.
+- Create a deployable WAR file for Apache Tomcat.
+
+
+5. SCOPE OF THE PROJECT
+-----------------------
+
+The project covers the following inventory activities:
+
+- Product catalog management
+- Product search and category filtering
+- Supplier management
+- Stock-in operations
+- Stock-out operations
+- Inventory adjustments
+- Recent stock transaction display
+- Low-stock monitoring
+- Inventory dashboard
+- Inventory reports
+- MySQL database initialization
+- JDBC database connectivity
+
+The database design also includes tables for users, purchases, purchase
+items, production batches, and production materials. These areas provide the
+foundation for future authentication, procurement, and production modules.
+
+
+6. FUNCTIONAL MODULES
+---------------------
+
+6.1 Product Management
+~~~~~~~~~~~~~~~~~~~~~~
+
+The product module allows users to:
+
+- Add new products.
+- View active products.
+- Search products by name and related information.
+- Filter products by category.
+- Edit product details.
+- Delete products when they are not referenced by historical records.
+- Maintain product code, name, category, unit, price, quantity, and minimum
+  stock level.
+
+Supported product categories include:
+
+- RAW_MATERIAL
+- FABRIC
+- FINISHED_PRODUCT
+- CHEMICAL
+- OTHER
+
+Sample products include cotton yarn, cotton fabric, denim fabric, reactive
+blue dye, and finished cotton shirts.
+
+6.2 Supplier Management
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The supplier module allows users to:
+
+- Add suppliers.
+- View supplier details.
+- Search supplier records.
+- Update supplier information.
+- Delete suppliers that are not associated with purchase records.
+
+Supplier information includes name, contact number, email address, address,
+active status, and creation time.
+
+6.3 Inventory Management
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The inventory module supports:
+
+- Stock-in transactions.
+- Stock-out transactions.
+- Stock adjustments.
+- Quantity and reason validation.
+- Recent transaction history.
+- Automatic update of the product's current quantity.
+
+Stock-out operations verify that sufficient inventory is available before
+reducing the quantity. If the requested quantity is greater than the current
+stock, the operation is rejected.
+
+6.4 Dashboard
+~~~~~~~~~~~~~
+
+The dashboard provides a summarized view of inventory information, including:
+
+- Product inventory
+- Current quantities
+- Minimum stock levels
+- Low-stock products
+- Recent stock transactions
+- Links to product, supplier, inventory, and report modules
+
+6.5 Reports
+~~~~~~~~~~~
+
+The reports module displays:
+
+- Current product inventory.
+- Product quantities and units.
+- Low-stock products.
+- Inventory availability information.
+
+6.6 Database Health Check
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The /health endpoint tests whether the application can open and close a JDBC
+connection to MySQL. This is useful for verifying that the application and
+database configuration are working correctly.
+
+
+7. TECHNOLOGY STACK
+-------------------
+
+Programming language:
+    Java 21
+
+Build tool:
+    Apache Maven 3.9 or later
+
+Application packaging:
+    Maven WAR
+
+Web platform:
+    Jakarta EE 10 APIs
+
+Web framework components:
+    Jakarta Servlets and JSP
+
+Web server:
+    Apache Tomcat 10.1
+
+Database:
+    MySQL 8.4
+
+Database connectivity:
+    JDBC with MySQL Connector/J 9.4.0
+
+Frontend:
+    HTML, CSS, JSP, and Bootstrap 5.3.3
+
+Containerization and database setup:
+    Docker Compose
+
+Version control:
+    Git and GitHub
+
+
+8. SYSTEM ARCHITECTURE
+----------------------
+
+The application follows a simple layered MVC-style architecture:
+
+    Browser
+       |
+       v
+    JSP Views
+       |
+       v
+    Jakarta Servlets
+       |
+       v
+    Service Layer
+       |
+       v
+    DAO Layer
+       |
+       v
+    JDBC
+       |
+       v
+    MySQL Database
+
+8.1 Model Layer
+~~~~~~~~~~~~~~~
+
+The model layer contains Java classes representing application data:
+
+- Product
+- Supplier
+- StockTransaction
+- DashboardData
+
+These classes contain fields, getters, setters, and supporting domain
+information used by servlets and DAO classes.
+
+8.2 View Layer
+~~~~~~~~~~~~~~
+
+JSP files provide the user interface. The views are stored under:
+
+    src/main/webapp/WEB-INF/views/
+
+The view groups include:
+
+- dashboard
+- products
+- suppliers
+- inventory
+- reports
+
+Bootstrap is used for responsive layout and common user-interface styling.
+
+8.3 Controller Layer
+~~~~~~~~~~~~~~~~~~~~
+
+Jakarta Servlets process browser requests, validate input, invoke DAO or
+service operations, and forward data to JSP views.
+
+Implemented servlet mappings include:
+
+    /dashboard
+    /products/*
+    /suppliers/*
+    /inventory/*
+    /reports
+    /health
+
+8.4 Service Layer
+~~~~~~~~~~~~~~~~~
+
+The service layer contains business rules that should not be placed directly
+in the user-interface code.
+
+InventoryService validates:
+
+- Quantity must be present and greater than zero.
+- Transaction reason must be present.
+- Transaction reason must not exceed 255 characters.
+
+8.5 DAO Layer
+~~~~~~~~~~~~~
+
+The Data Access Object layer contains SQL statements and database mapping
+logic. The main DAO classes are:
+
+- ProductDAO
+- SupplierDAO
+- InventoryDAO
+- DashboardDAO
+
+JDBC PreparedStatement objects are used for parameterized queries and to
+reduce SQL injection risk.
+
+
+9. DATABASE DESIGN
+------------------
+
+The database is named cloth_factory and uses MySQL InnoDB tables.
+
+9.1 Main Tables
+~~~~~~~~~~~~~~~
+
+users:
+    Stores user identities, password hashes, names, roles, active status, and
+    creation timestamps. This table supports the planned authentication
+    module.
+
+products:
+    Stores product codes, names, categories, units, prices, current
+    quantities, minimum stock levels, active status, and timestamps.
+
+suppliers:
+    Stores supplier names, contact numbers, email addresses, addresses, and
+    active status.
+
+purchases:
+    Stores purchase headers, supplier references, invoice numbers, dates,
+    remarks, and the user who created the purchase.
+
+purchase_items:
+    Stores individual products and quantities belonging to a purchase.
+
+stock_transactions:
+    Stores stock-in, stock-out, and adjustment events, including the product,
+    quantity, reason, date, and user who created the event.
+
+production_batches:
+    Stores production batch codes, products, produced quantities, dates,
+    statuses, remarks, and responsible users.
+
+production_materials:
+    Stores raw materials consumed by production batches.
+
+9.2 Database Integrity
+~~~~~~~~~~~~~~~~~~~~~~
+
+The database uses:
+
+- Primary keys for unique row identification.
+- Foreign keys for relationships between tables.
+- Unique constraints for usernames, product codes, and invoice numbers.
+- DECIMAL data types for prices and quantities.
+- CHECK constraints for positive and non-negative values.
+- Indexes for product searches and transaction reports.
+- InnoDB transactions for reliable updates.
+
+The products table stores current_quantity as operational denormalization.
+This allows fast dashboard reads while stock_transactions maintains the
+history of every inventory movement.
+
+
+10. INVENTORY TRANSACTION PROCESS
+---------------------------------
+
+The stock movement process works as follows:
+
+1. The user submits a stock movement form.
+2. The servlet reads and validates the request parameters.
+3. InventoryService validates the quantity and reason.
+4. InventoryDAO opens a JDBC connection.
+5. Auto-commit is disabled.
+6. The product row is locked using SELECT ... FOR UPDATE.
+7. For stock-out transactions, the available quantity is checked.
+8. The product's current quantity is updated.
+9. A stock_transactions audit record is inserted.
+10. The database transaction is committed.
+11. If an error occurs, the transaction is rolled back.
+
+This approach helps prevent race conditions and ensures that the product
+quantity update and transaction history record are handled together.
+
+
+11. SECURITY AND VALIDATION CONSIDERATIONS
+------------------------------------------
+
+The current implementation includes:
+
+- JDBC PreparedStatement usage.
+- Input validation for stock quantities and reasons.
+- Database constraints for valid quantities and prices.
+- HTML escaping utility support for JSP output.
+- Safe deletion checks for referenced products and suppliers.
+- Environment-variable support for database configuration.
+- Transaction rollback when inventory updates fail.
+
+The authentication design is present in the database schema but has not yet
+been completed in the application layer. Future implementation should include:
+
+- BCrypt password hashing.
+- Login and logout.
+- Session management.
+- Role-based authorization.
+- Protection of administrative operations.
+- Secure production database credentials.
+- CSRF protection for state-changing forms.
+
+The sample password value in the database schema is a placeholder and is not
+a usable password.
+
+
+12. PROJECT DIRECTORY STRUCTURE
+-------------------------------
+
+    database/
+        schema.sql
+
+    docs/
+        database-design.md
+
+    src/main/java/com/clothfactory/
+        dao/
+            DashboardDAO.java
+            InventoryDAO.java
+            ProductDAO.java
+            SupplierDAO.java
+        model/
+            DashboardData.java
+            Product.java
+            StockTransaction.java
+            Supplier.java
+        service/
+            InsufficientStockException.java
+            InventoryService.java
+        servlet/
+            DashboardServlet.java
+            DatabaseHealthServlet.java
+            InventoryServlet.java
+            ProductServlet.java
+            ReportServlet.java
+            SupplierServlet.java
+        util/
+            DBConnection.java
+            HtmlEscaper.java
+
+    src/main/webapp/
+        WEB-INF/
+            views/
+            web.xml
+        assets/css/app.css
+        index.jsp
+
+    docker-compose.yml
+    pom.xml
+    README.md
+
+
+13. INSTALLATION AND EXECUTION
+------------------------------
+
+13.1 Prerequisites
+~~~~~~~~~~~~~~~~~~
+
+- JDK 21
+- Maven 3.9 or later
+- Docker Engine with Docker Compose
+- Apache Tomcat 10.1
+
+13.2 Start the MySQL Database
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Run the following commands from the project root:
+
+    docker compose up -d
+    docker compose ps
+
+The MySQL container uses the database name cloth_factory. The schema and
+sample records are loaded automatically when the database volume is first
+initialized.
+
+13.3 Configure Database Connection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The application reads database settings from environment variables:
+
+    DB_URL
+    DB_USER
+    DB_PASSWORD
+
+Example:
+
+    export DB_URL='jdbc:mysql://localhost:3306/cloth_factory?useSSL=false&serverTimezone=UTC'
+    export DB_USER='cloth_app'
+    export DB_PASSWORD='your-local-password'
+
+Development fallback values are available in the application and Docker
+Compose configuration. These values must not be reused in production.
+
+13.4 Build the Application
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Run:
+
+    mvn clean package
+
+The deployable WAR file is created at:
+
+    target/cloth-factory-inventory.war
+
+13.5 Deploy to Tomcat
+~~~~~~~~~~~~~~~~~~~~~
+
+Copy the WAR file to the Tomcat 10.1 webapps directory. Start Tomcat and open:
+
+    http://localhost:8080/cloth-factory-inventory/
+
+The exact URL may vary depending on the Tomcat context configuration.
+
+
+14. CURRENT PROJECT STATUS
+--------------------------
+
+Completed or available:
+
+- Maven WAR project configuration.
+- Java 21 compiler configuration.
+- Jakarta Servlet 6.0 API configuration.
+- MySQL Connector/J configuration.
+- Docker Compose MySQL service.
+- Initial normalized database schema.
+- Sample products and supplier data.
+- Product CRUD operations.
+- Product searching and category filtering.
+- Supplier CRUD operations.
+- Supplier searching.
+- Stock-in, stock-out, and adjustment operations.
+- Negative-stock prevention.
+- Transaction rollback handling.
+- Dashboard view.
+- Inventory report view.
+- Low-stock detection.
+- Database health endpoint.
+- Tomcat deployment structure.
+
+Planned or incomplete:
+
+- Login and logout.
+- BCrypt authentication.
+- Role-based access control.
+- Complete user management.
+- Purchase entry screens and workflows.
+- Production batch workflows.
+- Automatic production material consumption.
+- Expanded reporting.
+- Comprehensive automated test coverage.
+- Final deployment and academic documentation.
+
+
+15. PROJECT STAGES
+------------------
+
+The project is organized into the following stages:
+
+1. Environment and database foundation
+2. JDBC connection and health check
+3. Product management
+4. Supplier management
+5. Stock-in, stock-out, and production transactions
+6. Dashboard and reports
+7. Authentication and authorization hardening
+8. Tomcat deployment, testing, and academic documentation
+
+
+16. ADVANTAGES OF THE SYSTEM
+----------------------------
+
+- Centralized inventory data.
+- Faster product and supplier lookup.
+- Reduced manual calculation errors.
+- Immediate visibility of current stock.
+- Low-stock identification.
+- Historical transaction tracking.
+- Protection against negative inventory.
+- Relational database integrity.
+- Simple deployment as a WAR file.
+- Suitable for learning core Java enterprise technologies.
+
+
+17. LIMITATIONS
+---------------
+
+- Authentication and authorization are not yet implemented in the servlet
+  layer.
+- Purchase and production tables exist in the schema, but complete user
+  workflows are still under development.
+- The project currently uses direct JDBC rather than a connection pool.
+- Automated unit and integration tests are limited.
+- Development database credentials are included as fallback values and must
+  be replaced with secure configuration for production use.
+- The application is intended for educational use and requires additional
+  hardening before production deployment.
+
+
+18. FUTURE ENHANCEMENTS
+-----------------------
+
+Future versions may include:
+
+- Secure login and logout.
+- Admin and staff role permissions.
+- BCrypt password hashing.
+- User management screens.
+- Purchase creation with multiple purchase items.
+- Supplier-linked stock-in records.
+- Production batch planning and completion.
+- Automatic material consumption.
+- Exportable PDF and spreadsheet reports.
+- Date-range reporting.
+- Audit logging for administrative actions.
+- Connection pooling through a server-managed DataSource.
+- Automated unit, integration, and end-to-end tests.
+- Improved error pages and user notifications.
+- Production deployment configuration.
+
+
+19. CONCLUSION
+--------------
+
+The Cloth Factory Inventory Management System provides a practical foundation
+for managing inventory operations in a cloth factory. It demonstrates how a
+Java web application can connect to a relational database, process requests
+through Jakarta Servlets, render JSP views, and enforce important inventory
+rules through transactional JDBC operations.
+
+The current system successfully establishes the core inventory platform with
+product management, supplier management, stock tracking, dashboards, and
+reports. The existing schema and layered architecture also provide a clear
+path for implementing authentication, purchasing, production, reporting
+enhancements, and deployment hardening in future phases.
+
+
+20. REFERENCES WITHIN THE PROJECT
+----------------------------------
+
+- README.md
+- docs/database-design.md
+- database/schema.sql
+- pom.xml
+- docker-compose.yml
+- src/main/java/com/clothfactory/
+- src/main/webapp/
+
+
+END OF REPORT
+=============
