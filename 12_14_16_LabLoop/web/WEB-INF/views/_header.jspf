@@ -1,0 +1,64 @@
+<%-- Shared page chrome. Every page starts with:  include _taglibs.jspf, c:set pageTitle/nav, include _header.jspf --%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><c:out value="${pageTitle}" /> · LabLoop</title>
+    <link rel="stylesheet" href="${ctx}/assets/labloop.css">
+</head>
+<body>
+<div class="app">
+    <aside class="side">
+        <div class="brand">
+            <div class="brand-mark">LL</div>
+            <div><b>LabLoop</b><small>Lab resources, in the loop</small></div>
+        </div>
+        <nav class="nav">
+            <div class="nav-label">Workspace</div>
+            <a href="${ctx}/dashboard" class="${nav == 'dashboard' ? 'active' : ''}">Dashboard</a>
+            <a href="${ctx}/equipment" class="${nav == 'equipment' ? 'active' : ''}">Equipment</a>
+            <a href="${ctx}/labs" class="${nav == 'labs' ? 'active' : ''}">Labs</a>
+            <a href="${ctx}/bookings" class="${nav == 'bookings' ? 'active' : ''}">${me.staff ? 'Bookings desk' : 'My bookings'}</a>
+            <a href="${ctx}/kit" class="${nav == 'kit' ? 'active' : ''}">Practical Kit
+                <c:if test="${kitSize > 0}"><span class="pill">${kitSize}</span></c:if></a>
+            <a href="${ctx}/maintenance" class="${nav == 'maintenance' ? 'active' : ''}">Maintenance</a>
+            <c:if test="${me.staff}">
+                <div class="nav-label">Administration</div>
+                <a href="${ctx}/members" class="${nav == 'members' ? 'active' : ''}">Members</a>
+                <a href="${ctx}/activity" class="${nav == 'activity' ? 'active' : ''}">Activity log</a>
+            </c:if>
+            <a href="${ctx}/settings" class="${nav == 'settings' ? 'active' : ''}">Settings</a>
+            <div class="nav-label">Developer</div>
+            <a href="${ctx}/api/stats" target="_blank">REST API ↗</a>
+        </nav>
+    </aside>
+    <div class="main">
+        <header class="top">
+            <div class="inst"><c:out value="${institution}" /> &middot; Central Lab Services</div>
+            <div class="who">
+                <div class="avatar">${me.initials}</div>
+                <div>
+                    <div class="n"><c:out value="${me.fullName}" /></div>
+                    <div class="r">${me.roleLabel}</div>
+                </div>
+                <form method="post" action="${ctx}/logout" class="inline">
+                    <button class="btn sec sm" type="submit">Log out</button>
+                </form>
+            </div>
+        </header>
+        <main class="content">
+            <c:if test="${not empty sessionScope.flashOk}">
+                <div class="flash ok"><c:out value="${sessionScope.flashOk}" /></div>
+                <c:remove var="flashOk" scope="session" />
+            </c:if>
+            <c:if test="${not empty sessionScope.flashErr}">
+                <div class="flash err"><c:out value="${sessionScope.flashErr}" /></div>
+                <c:remove var="flashErr" scope="session" />
+            </c:if>
+            <c:if test="${not empty errors}">
+                <ul class="errors" style="margin-bottom:16px">
+                    <c:forEach var="er" items="${errors}"><li><c:out value="${er}" /></li></c:forEach>
+                </ul>
+            </c:if>

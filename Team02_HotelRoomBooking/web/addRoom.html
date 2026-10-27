@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Room - Seaside Grand Hotel</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/hotel.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="Home.html">Seaside Grand <span>Hotel</span></a>
+  <nav aria-label="Main">
+    <a href="Home.html">Home</a>
+    <a href="AvailableRoomsServlet">Rooms</a>
+  </nav>
+</header>
+
+<main class="page">
+  <div class="page-head">
+    <p class="kicker">Front desk</p>
+    <h1>Add a new room</h1>
+    <p>New rooms open as <b>available</b> immediately, so guests can book them right away.</p>
+  </div>
+
+  <div class="narrow">
+    <div class="form-card">
+      <form action="AddRoomServlet" method="post">
+        <div class="field">
+          <label for="roomNumber">Room number</label>
+          <input type="text" id="roomNumber" name="roomNumber"
+                 placeholder="e.g. 101" required autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="roomType">Room type</label>
+          <select id="roomType" name="roomType" required>
+            <option value="Single">Single &mdash; cosy, sea glimpse</option>
+            <option value="Double">Double &mdash; space for two</option>
+            <option value="Deluxe">Deluxe &mdash; balcony + breakfast</option>
+            <option value="Suite">Suite &mdash; top floor, full view</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="pricePerNight">Price per night (Rs.)</label>
+          <input type="text" id="pricePerNight" name="pricePerNight"
+                 placeholder="e.g. 2500" required inputmode="decimal" autocomplete="off">
+          <p class="hint">Numbers only &mdash; no commas or symbols.</p>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Save Room</button>
+      </form>
+      <a class="btn btn-quiet btn-block" href="Home.html">Back to Home</a>
+    </div>
+  </div>
+
+  <div class="ticks" aria-label="Good to know">
+    <div class="tick"><span class="mark">&#10003;</span><b>Unique numbers</b>Duplicates are rejected automatically.</div>
+    <div class="tick"><span class="mark">&#10003;</span><b>Instantly live</b>New rooms can be booked right away.</div>
+    <div class="tick"><span class="mark">&#10003;</span><b>Self-closing</b>A room closes the moment it is booked.</div>
+    <div class="tick"><span class="mark">&#10003;</span><b>True pricing</b>Guests see exactly what you enter.</div>
+  </div>
+</main>
+
+<footer class="footer">&copy; 2026 Seaside Grand Hotel</footer>
+</body>
+</html>

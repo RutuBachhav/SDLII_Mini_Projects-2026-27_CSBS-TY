@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
+  <persistence-unit name="expensePU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.sdl.expense.Expense</class>
+    <class>com.sdl.expense.AppSetting</class>
+    <properties>
+      <property name="eclipselink.ddl-generation" value="none"/>
+      <property name="eclipselink.logging.level" value="WARNING"/>
+    </properties>
+  </persistence-unit>
+</persistence>

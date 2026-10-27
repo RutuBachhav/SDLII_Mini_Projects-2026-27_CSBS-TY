@@ -1,0 +1,8 @@
+target/
+*.war
+*.class
+*.jar
+.DS_Store
+Thumbs.db
+*.log
+.nb-cache/

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                                 https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <!--
+        transaction-type="JTA": GlassFish manages transactions for us (EJB methods = one transaction each).
+        The EntityManager is injected with @PersistenceContext(unitName = "LabLoopPU").
+    -->
+    <persistence-unit name="LabLoopPU" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <!-- ===== ACTIVE NOW: Java DB (Apache Derby) bundled with GlassFish ======
+             NetBeans: Services -> Databases -> Java DB -> Start Server (GlassFish usually starts it). -->
+        <jta-data-source>jdbc/__default</jta-data-source>
+
+        <!-- ===== MySQL (as in Assignment 2 part 2) ===============================
+             1. Put your MySQL root password in LabLoopSettingsBean.java (@DataSourceDefinition).
+             2. Comment out the Java DB line above and uncomment the line below.
+             The labloop database is created automatically. Driver already in domain1/lib. -->
+        <!-- <jta-data-source>java:app/jdbc/LabLoopDS</jta-data-source> -->
+
+        <class>com.labloop.entity.Lab</class>
+        <class>com.labloop.entity.Equipment</class>
+        <class>com.labloop.entity.LabUser</class>
+        <class>com.labloop.entity.Booking</class>
+        <class>com.labloop.entity.MaintenanceTicket</class>
+        <class>com.labloop.entity.ActivityLog</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <properties>
+            <!-- Create missing tables/columns automatically, keep existing data -->
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+            <!-- Show SQL in the GlassFish log: change to FINE while debugging -->
+            <property name="eclipselink.logging.level" value="INFO"/>
+            <property name="eclipselink.logging.level.sql" value="INFO"/>
+        </properties>
+    </persistence-unit>
+</persistence>
