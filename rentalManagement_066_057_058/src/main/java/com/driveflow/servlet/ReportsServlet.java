@@ -1,0 +1,3 @@
+package com.driveflow.servlet;
+import com.driveflow.store.DataStore; import javax.servlet.*; import javax.servlet.http.*; import java.io.IOException;
+public class ReportsServlet extends HttpServlet {protected void doGet(HttpServletRequest req,HttpServletResponse resp)throws ServletException,IOException{req.setAttribute("vehicles",DataStore.vehicles);req.setAttribute("customers",DataStore.customers);req.setAttribute("rentals",DataStore.rentals);req.setAttribute("payments",DataStore.payments);req.setAttribute("revenue",DataStore.revenue());req.getRequestDispatcher("/views/reports.jsp").forward(req,resp);}}

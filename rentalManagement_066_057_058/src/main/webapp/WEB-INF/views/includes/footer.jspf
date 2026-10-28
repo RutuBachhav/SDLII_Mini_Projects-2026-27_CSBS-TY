@@ -1,0 +1,1 @@
+</div><footer class="footer">DriveFlow · Vehicle Rental Management <span>Built with Java, Jakarta EE & MySQL</span></footer></main></div><script src="${pageContext.request.contextPath}/assets/js/app.js"></script><script src="${pageContext.request.contextPath}/assets/js/forms.js"></script></body></html>
