@@ -19,5 +19,22 @@ services:
       timeout: 5s
       retries: 20
 
+  app:
+    image: tomcat:10.1-jdk21-temurin
+    container_name: cloth-factory-tomcat
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/cloth_factory?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      DB_USER: cloth_app
+      DB_PASSWORD: cloth_app_dev_password
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/cloth-factory-inventory.war:/usr/local/tomcat/webapps/ROOT.war:ro
+
 volumes:
   cloth_factory_mysql_data:

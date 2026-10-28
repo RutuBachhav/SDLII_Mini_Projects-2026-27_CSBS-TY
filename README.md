@@ -20,11 +20,25 @@ The current Codespace has Java 25 installed. Maven is configured for Java 21, so
 Run these commands from the repository root:
 
 ```bash
-docker compose up -d
+docker compose up -d mysql
 docker compose ps
 ```
 
 The schema and sample data are loaded automatically on the first startup. The Compose credentials are development-only values and must not be reused in production.
+
+## Run the web application
+
+Build the WAR and start the application server with:
+
+```bash
+mvn clean package
+docker compose up -d
+docker compose ps
+```
+
+The application is deployed at the Tomcat root context. Open `http://localhost:8080/`
+or the forwarded Codespaces port URL. The main routes are `/dashboard`, `/products`,
+`/suppliers`, `/inventory`, `/reports`, and `/health`.
 
 ## Database connection settings
 
@@ -44,7 +58,9 @@ The `/health` servlet will return `UP` when the application can open and close a
 mvn clean package
 ```
 
-The deployable file is `target/cloth-factory-inventory.war`. Deploy it to Tomcat 10.1's `webapps` directory, then open `/cloth-factory-inventory/` through the forwarded Tomcat port.
+The deployable file is `target/cloth-factory-inventory.war`. Docker Compose mounts it
+as Tomcat's root application. If deploying manually, copy it to Tomcat 10.1's
+`webapps/ROOT.war` and open the server root through the forwarded Tomcat port.
 
 ## Database design
 
