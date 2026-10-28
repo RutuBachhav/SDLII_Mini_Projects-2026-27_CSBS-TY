@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+    xmlns="https://jakarta.ee/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+    https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <persistence-unit name="HostelPU" transaction-type="RESOURCE_LOCAL">
+
+        <provider>
+            org.eclipse.persistence.jpa.PersistenceProvider
+        </provider>
+
+        <class>com.entity.Hostel</class>
+        <class>com.entity.Room</class>
+        <class>com.entity.AppUser</class>
+        <class>com.entity.AppRole</class>
+        <class>com.entity.RoomRequest</class>
+        <class>com.entity.RoomAllocation</class>
+
+        <!-- Disable the shared L2 cache so role/active changes are visible
+             immediately to every EntityManagerFactory in the application. -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+
+        <properties>
+
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="com.mysql.cj.jdbc.Driver"/>
+
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/hostel_db?useSSL=false&amp;serverTimezone=UTC"/>
+
+            <property name="jakarta.persistence.jdbc.user"
+                      value="root"/>
+
+            <property name="jakarta.persistence.jdbc.password"
+                      value="123456789"/>
+
+
+            <!-- Schema is managed by database/migrations/V0__base_schema.sql,
+                 V1__rbac.sql, and V2__room_requests.sql. Never let the
+                 application alter production tables at startup. -->
+            <property name="eclipselink.ddl-generation"
+                      value="none"/>
+
+            <!-- Display SQL -->
+            <property name="eclipselink.logging.level"
+                      value="FINE"/>
+
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
