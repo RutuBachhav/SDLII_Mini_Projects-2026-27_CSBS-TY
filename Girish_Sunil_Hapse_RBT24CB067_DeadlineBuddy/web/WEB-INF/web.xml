@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    DeadlineBuddy deployment descriptor.
+
+    Servlets and filters are declared with @WebServlet and @WebFilter next to
+    the code they belong to, so there are no mappings here to drift out of step
+    with them. What is here is what belongs to the application as a whole:
+    the welcome page, session behaviour, the character encoding, the error
+    pages, and the rule that JSPs may not contain Java.
+-->
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <display-name>DeadlineBuddy</display-name>
+    <description>Deadline tracker for assignments, practicals, submissions and exams.</description>
+
+    <!-- index.jsp decides between the dashboard and the sign-in page. -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <request-character-encoding>UTF-8</request-character-encoding>
+    <response-character-encoding>UTF-8</response-character-encoding>
+
+    <session-config>
+        <!-- com.util.Config can shorten this per session at sign-in. -->
+        <session-timeout>60</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <!-- Not "secure": the lab runs over plain HTTP on localhost. -->
+            <secure>false</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <url-pattern>*.jspf</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+            <!-- The views use JSTL and EL only. This makes that a rule rather
+                 than a habit: a stray scriptlet becomes a translation error. -->
+            <scripting-invalid>true</scripting-invalid>
+            <!-- trim-directive-whitespaces is deliberately NOT set. It makes
+                 Jasper drop template text that is only whitespace, which glues
+                 two adjacent EL expressions together: "${n} ${n eq 1 ? 'task'
+                 : 'tasks'}" renders as "1task". Tidier generated HTML is not
+                 worth losing spaces between words. -->
+        </jsp-property-group>
+    </jsp-config>
+
+    <!-- Container-level errors - an unmapped URL, an uncaught failure - get the
+         same page as the ones the servlets raise themselves. -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>405</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+
+</web-app>

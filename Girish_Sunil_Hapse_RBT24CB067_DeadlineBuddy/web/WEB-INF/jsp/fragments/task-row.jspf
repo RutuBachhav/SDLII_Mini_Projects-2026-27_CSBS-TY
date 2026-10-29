@@ -1,0 +1,75 @@
+<%--
+    One task, as it appears on the dashboard panels and in the task list.
+
+    Expects in scope:
+      t         the DeadlineTask (from c:forEach var="t")
+      returnTo  where the row's buttons should come back to after posting
+
+    The deadline category, the urgency and the due label are all read off the
+    entity, which derives them from the status and the due date - so this
+    fragment holds no date logic of its own.
+--%>
+<li class="task-row ${t.overdue ? 'is-overdue' : ''} ${t.dueToday ? 'is-today' : ''} ${t.completed ? 'is-done' : ''}">
+    <div class="task-main">
+        <div class="task-title"><c:out value="${t.title}"/></div>
+
+        <c:if test="${not empty t.description}">
+            <div class="task-desc">
+                <c:out value="${fn:substring(t.description, 0, 150)}"/><c:if
+                    test="${fn:length(t.description) gt 150}">&hellip;</c:if>
+            </div>
+        </c:if>
+
+        <div class="task-meta">
+            <span class="chip">
+                <span class="swatch" style="background: ${t.subject.displayColor}"></span>
+                <c:out value="${t.subject.name}"/>
+            </span>
+            <span class="chip">${t.taskType.label}</span>
+            <span class="chip ${t.priority.cssClass}">${t.priority.label}</span>
+            <span class="chip ${t.status.cssClass}">${t.status.label}</span>
+            <span class="due ${t.overdue ? 'is-overdue' : ''} ${t.dueToday ? 'is-today' : ''}">
+                ${t.dueDateDisplay}<c:if test="${not empty t.dueTimeIso}">, ${t.dueTimeIso}</c:if>
+                &middot; ${t.dueLabel}
+            </span>
+        </div>
+    </div>
+
+    <div class="task-actions">
+        <c:choose>
+            <c:when test="${t.completed}">
+                <form class="inline-form" method="post" action="<c:url value='/tasks/status'/>">
+                    <input type="hidden" name="csrf" value="${csrfToken}">
+                    <input type="hidden" name="id" value="${t.id}">
+                    <input type="hidden" name="target" value="PENDING">
+                    <input type="hidden" name="returnTo" value="<c:out value='${returnTo}'/>">
+                    <button type="submit" class="btn btn-quiet btn-sm">Reopen</button>
+                </form>
+            </c:when>
+            <c:otherwise>
+                <c:if test="${t.status eq 'PENDING'}">
+                    <form class="inline-form" method="post" action="<c:url value='/tasks/status'/>">
+                        <input type="hidden" name="csrf" value="${csrfToken}">
+                        <input type="hidden" name="id" value="${t.id}">
+                        <input type="hidden" name="target" value="IN_PROGRESS">
+                        <input type="hidden" name="returnTo" value="<c:out value='${returnTo}'/>">
+                        <button type="submit" class="btn btn-quiet btn-sm">Start</button>
+                    </form>
+                </c:if>
+                <form class="inline-form" method="post" action="<c:url value='/tasks/status'/>">
+                    <input type="hidden" name="csrf" value="${csrfToken}">
+                    <input type="hidden" name="id" value="${t.id}">
+                    <input type="hidden" name="target" value="COMPLETED">
+                    <input type="hidden" name="returnTo" value="<c:out value='${returnTo}'/>">
+                    <button type="submit" class="btn btn-accent btn-sm">Complete</button>
+                </form>
+            </c:otherwise>
+        </c:choose>
+
+        <a class="btn btn-quiet btn-sm"
+           href="<c:url value='/tasks/edit'><c:param name='id' value='${t.id}'/><c:param name='returnTo' value='${returnTo}'/></c:url>">Edit</a>
+
+        <a class="btn btn-quiet btn-sm is-danger"
+           href="<c:url value='/tasks/delete'><c:param name='id' value='${t.id}'/><c:param name='returnTo' value='${returnTo}'/></c:url>">Delete</a>
+    </div>
+</li>

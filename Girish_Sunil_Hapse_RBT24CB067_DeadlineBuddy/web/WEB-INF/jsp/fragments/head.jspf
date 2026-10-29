@@ -1,0 +1,66 @@
+<%--
+    Opens the page and draws the top bar.
+
+    Deliberately carries no page or taglib directives: it is included with a
+    static <%@ include %>, so its text lands in the middle of the including
+    page. A taglib directive there would re-declare a prefix the page has
+    already used, which is exactly what produces
+    "PWC6307: The prefix c ... has been previously used". Every JSP declares
+    its own directives at the very top instead.
+
+    Expects: pageTitle, page (the nav key). Reads the signed-in user from the
+    session.
+--%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${empty pageTitle ? 'DeadlineBuddy' : pageTitle} &middot; DeadlineBuddy</title>
+    <link rel="stylesheet" href="<c:url value='/assets/vendor/bootstrap.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='/assets/css/app.css'/>">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="inner">
+        <a class="brand" href="<c:url value='/dashboard'/>">Deadline<span class="dot">Buddy</span></a>
+
+        <nav class="topnav">
+            <a href="<c:url value='/dashboard'/>" class="${page eq 'dashboard' ? 'active' : ''}">Dashboard</a>
+            <a href="<c:url value='/tasks'/>" class="${page eq 'tasks' ? 'active' : ''}">Tasks</a>
+            <a href="<c:url value='/subjects'/>" class="${page eq 'subjects' ? 'active' : ''}">Subjects</a>
+        </nav>
+
+        <div class="spacer"></div>
+
+        <div class="who">
+            <span class="avatar">${fn:toUpperCase(fn:substring(sessionScope.userName, 0, 1))}</span>
+            <span>
+                <span class="name"><c:out value="${sessionScope.userName}"/></span>
+                <span class="mail"><c:out value="${sessionScope.userEmail}"/></span>
+            </span>
+            <form class="inline-form ms-2" method="post" action="<c:url value='/logout'/>">
+                <input type="hidden" name="csrf" value="${csrfToken}">
+                <button type="submit" class="btn btn-quiet btn-sm">Sign out</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<main class="app-shell">
+
+    <c:if test="${not empty flash}">
+        <div class="alert alert-${flash.type} d-flex justify-content-between align-items-start mt-3 mb-0"
+             role="status">
+            <span><c:out value="${flash.text}"/></span>
+            <button type="button" class="btn-close btn-sm needs-js ms-3" aria-label="Dismiss"
+                    data-dismiss-flash></button>
+        </div>
+    </c:if>
+
+    <c:if test="${not empty errorSummary}">
+        <div class="alert alert-danger mt-3 mb-0" role="alert">
+            <c:out value="${errorSummary}"/>
+        </div>
+    </c:if>
