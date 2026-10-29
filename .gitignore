@@ -1,14 +1,6 @@
-# Developer notes and working files - not part of the submission
-dev/
-
-# NetBeans build output
-build/
-dist/
-nbproject/private/
-
-# OS and editor noise
+target/
+.env
+*.log
+.idea/
+.vscode/settings.json
 Thumbs.db
-desktop.ini
-.DS_Store
-*~
-*.swp

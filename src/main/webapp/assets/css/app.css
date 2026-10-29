@@ -1,0 +1,30 @@
+:root {
+    --ink: #17202a;
+    --paper: #f4f0e8;
+    --accent: #d95d39;
+    --accent-dark: #7b2d26;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--ink);
+    background: radial-gradient(circle at top right, #f9cf9f 0, transparent 34%), var(--paper);
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.hero-panel {
+    max-width: 900px;
+    margin: 8vh auto 0;
+    border-left: 8px solid var(--accent);
+    background: rgba(255, 255, 255, 0.76);
+    box-shadow: 16px 16px 0 var(--accent-dark);
+}
+
+.eyebrow {
+    color: var(--accent-dark);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
