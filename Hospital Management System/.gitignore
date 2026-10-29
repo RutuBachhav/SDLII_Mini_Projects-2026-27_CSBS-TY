@@ -1,0 +1,14 @@
+target/
+*.class
+.idea/
+*.iml
+.settings/
+.classpath
+.project
+nbproject/private/
+nbactions.xml
+.DS_Store
+Thumbs.db
+
+.agents/
+skills-lock.json

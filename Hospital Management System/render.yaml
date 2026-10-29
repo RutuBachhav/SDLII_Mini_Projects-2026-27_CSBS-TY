@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: hospital-management-system
+    runtime: docker
+    plan: free
+    healthCheckPath: /hospital/
+    envVars:
+      # File-based H2 so data survives app restarts (redeploys start fresh).
+      - key: JDBC_URL
+        value: jdbc:h2:file:/tmp/hospitaldb;DB_CLOSE_DELAY=-1
