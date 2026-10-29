@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book - Library Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #2c3e50;
+        }
+
+        /* ── Header Bar ── */
+        .header {
+            background: linear-gradient(135deg, #2F3E34 0%, #3d5243 100%);
+            color: #ffffff;
+            padding: 24px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-left h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-left p {
+            font-size: 13px;
+            color: #d1dcce;
+            margin-top: 4px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .header-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* ── Main Layout ── */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ── Form Card ── */
+        .form-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 580px;
+            margin: 40px auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+            padding: 40px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .card-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .card-header p {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 6px;
+        }
+
+        /* ── Form Elements ── */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            color: #2c3e50;
+            background-color: #ffffff;
+            outline: none;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+        }
+
+        input::placeholder {
+            color: #a0aec0;
+        }
+
+        /* ── Submit Button ── */
+        .btn-submit {
+            width: 100%;
+            background: #3498db;
+            color: #ffffff;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.35);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        /* ── Navigation Links ── */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid #f0f3f6;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .pill-secondary {
+            background: #f0f4f8;
+            color: #2c3e50;
+            border: 1px solid #d9e2ec;
+        }
+
+        .pill-secondary:hover {
+            background: #e2e8f0;
+            color: #1a252f;
+            transform: translateY(-1px);
+        }
+
+        .pill-light {
+            background: #ffffff;
+            color: #7f8c8d;
+            border: 1px solid #e0e6ed;
+        }
+
+        .pill-light:hover {
+            background: #f8fafb;
+            color: #2c3e50;
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            color: #95a5a6;
+            font-size: 13px;
+            padding: 24px 16px;
+            margin-top: auto;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-right {
+                justify-content: center;
+                width: 100%;
+            }
+            .form-card {
+                margin: 20px 16px;
+                padding: 28px 20px;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <h1>&#128218; Add Book</h1>
+        <p>Register a new book in the catalog</p>
+    </div>
+    <div class="header-right">
+        <a href="viewBook.jsp" class="header-btn">&#128214; View Books</a>
+        <a href="index.html" class="header-btn">&#127968; Home</a>
+    </div>
+</header>
+
+<!-- Main Container -->
+<main class="main-content">
+    <div class="form-card">
+        <div class="card-header">
+            <h2>&#128218; Book Information</h2>
+            <p>Enter the book details below</p>
+        </div>
+
+        <form action="saveBook" method="post">
+            <div class="form-group">
+                <label for="title">Book Title *</label>
+                <input type="text" id="title" name="title" placeholder="e.g. Clean Code" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="author">Author *</label>
+                <input type="text" id="author" name="author" placeholder="e.g. Robert C. Martin" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="isbn">ISBN</label>
+                    <input type="text" id="isbn" name="isbn" placeholder="e.g. 978-0132350884">
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" id="category" name="category" placeholder="e.g. Programming">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="publisher">Publisher</label>
+                <input type="text" id="publisher" name="publisher" placeholder="e.g. Prentice Hall">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="publicationYear">Publication Year</label>
+                    <input type="number" id="publicationYear" name="publicationYear" placeholder="2024" value="2024">
+                </div>
+                <div class="form-group">
+                    <label for="totalCopies">Total Copies *</label>
+                    <input type="number" id="totalCopies" name="totalCopies" placeholder="1" value="1" min="1" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                &#10010; Save Book
+            </button>
+        </form>
+
+        <!-- Navigation Links -->
+        <div class="nav-links">
+            <a href="viewBook.jsp" class="nav-pill pill-secondary">
+                &#128214; View Books
+            </a>
+            <a href="index.html" class="nav-pill pill-light">
+                &#8592; Back to Home
+            </a>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    Library Management System
+</footer>
+
+</body>
+</html>

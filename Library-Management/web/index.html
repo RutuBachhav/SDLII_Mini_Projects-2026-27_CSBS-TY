@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #333333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2F3E34 0%, #3d5243 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 35px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: #d1dcce;
+            font-weight: 400;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            flex: 1;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+            justify-content: center;
+        }
+
+        .module {
+            background: #ffffff;
+            padding: 36px 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .module:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .module h2 {
+            text-align: center;
+            color: #2F3E34;
+            font-size: 1.45rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .module h2 span.icon {
+            font-size: 1.5rem;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .button {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        }
+
+        .add {
+            background-color: #3498db;
+        }
+
+        .add:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.38);
+            filter: brightness(1.05);
+        }
+
+        .view {
+            background-color: #27ae60;
+        }
+
+        .view:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.38);
+            filter: brightness(1.05);
+        }
+
+        .update {
+            background-color: #f39c12;
+        }
+
+        .update:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.38);
+            filter: brightness(1.05);
+        }
+
+        .delete {
+            background-color: #e74c3c;
+        }
+
+        .delete:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.38);
+            filter: brightness(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            color: #95a5a6;
+            font-size: 13px;
+            padding: 24px 16px;
+            margin-top: auto;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            .header p {
+                font-size: 0.9rem;
+            }
+            .module {
+                padding: 24px 20px;
+            }
+            .container {
+                margin: 24px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Library Management System</h1>
+    <p>Manage Books, Members, and Book Circulation</p>
+</div>
+
+<div class="container">
+    <div class="modules">
+        <!-- Book Module -->
+        <div class="module">
+            <h2><span class="icon">&#128218;</span> Book Module</h2>
+            <div class="button-group">
+                <a href="addBook.html" class="button add">Add Book</a>
+                <a href="viewBook.jsp" class="button view">View Books</a>
+                <a href="updateBook.jsp" class="button update">Update Book</a>
+                <a href="deleteBook.jsp" class="button delete">Delete Book</a>
+            </div>
+        </div>
+
+        <!-- Member Module -->
+        <div class="module">
+            <h2><span class="icon">&#128101;</span> Member Module</h2>
+            <div class="button-group">
+                <a href="addMember.jsp" class="button add">Add Member</a>
+                <a href="viewMember.jsp" class="button view">View Members</a>
+                <a href="updateMember.jsp" class="button update">Update Member</a>
+                <a href="deleteMember.jsp" class="button delete">Delete Member</a>
+            </div>
+        </div>
+
+        <!-- Loan Module -->
+        <div class="module">
+            <h2><span class="icon">&#128214;</span> Loan Module</h2>
+            <div class="button-group">
+                <a href="issueLoan.jsp" class="button add">Issue Book</a>
+                <a href="viewLoan.jsp" class="button view">View Loans</a>
+                <a href="returnLoan.jsp" class="button update">Return Book</a>
+                <a href="deleteLoan.jsp" class="button delete">Delete Loan</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    Library Management System
+</div>
+
+</body>
+</html>
