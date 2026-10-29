@@ -1,0 +1,42 @@
+<section class="page fade-in">
+    <div class="page-head">
+        <div>
+            <h1>People</h1>
+            <p>Everyone who can be added to a group.</p>
+        </div>
+    </div>
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-head"><h2>All people</h2><span class="hint">{{users.length}} people</span></div>
+            <input class="input" ng-model="q" placeholder="Search by name or e-mail" style="margin-bottom:12px">
+            <table class="tbl">
+                <thead><tr><th>Name</th><th>E-mail</th><th>Phone</th></tr></thead>
+                <tbody>
+                    <tr ng-repeat="u in users | filter:q">
+                        <td><span class="chip" style="box-shadow:none;padding:0"><span class="avatar sm av-{{u.id % 6}}">{{u.name | initials}}</span>{{u.name}}</span></td>
+                        <td>{{u.email}}</td>
+                        <td>{{u.phone || '—'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-head"><h2>Add a person</h2></div>
+            <form name="uf" ng-submit="addUser()" novalidate>
+                <div class="field">
+                    <label class="f">Full name</label>
+                    <input class="input" name="name" ng-model="nu.name" required minlength="2" maxlength="80" placeholder="e.g. Aditi Kulkarni">
+                </div>
+                <div class="field">
+                    <label class="f">E-mail</label>
+                    <input class="input" type="email" name="email" ng-model="nu.email" required placeholder="name@example.com">
+                </div>
+                <div class="field">
+                    <label class="f">Mobile (optional)</label>
+                    <input class="input" name="phone" ng-model="nu.phone" ng-pattern="/^[6-9][0-9]{9}$/" placeholder="10-digit number">
+                </div>
+                <button class="btn block" ng-disabled="uf.$invalid">Add person</button>
+            </form>
+        </div>
+    </div>
+</section>

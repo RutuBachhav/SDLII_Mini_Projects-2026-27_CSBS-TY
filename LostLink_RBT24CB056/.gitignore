@@ -1,0 +1,50 @@
+# Maven and generated packages
+/target/
+/build/
+/dist/
+/out/
+*.class
+*.jar
+*.war
+# IDE and operating-system state
+/nbproject/private/
+nbactions-private.xml
+nb-configuration.xml
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
+# Logs, JVM crash reports, editor and temporary files
+*.log
+hs_err_pid*
+replay_pid*
+*.dump
+*.dumpstream
+*.tmp
+*.bak
+*~
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+credentials*.json
+secrets*.json
+# Runtime SQLite databases, journals and personal photos
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+/data/
+/photos/
+# Local submission checkout and review artifacts
+/.submission/

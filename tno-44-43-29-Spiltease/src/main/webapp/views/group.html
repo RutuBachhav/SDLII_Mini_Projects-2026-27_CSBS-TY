@@ -1,0 +1,145 @@
+<section class="page fade-in" ng-show="group">
+    <div class="page-head">
+        <div>
+            <div class="crumb"><a href="#!/">Dashboard</a> / Group</div>
+            <h1>{{group.name}}</h1>
+            <p>{{group.description}} · {{group.memberCount}} members · {{group.expenseCount}} bills · <b>{{group.totalSpent | inr}}</b> spent</p>
+        </div>
+        <div style="display:flex;gap:10px">
+            <button class="btn ghost" ng-click="exportCsv()">Export CSV</button>
+        </div>
+    </div>
+
+    <div class="chips" style="margin-bottom:22px">
+        <span class="chip" ng-repeat="m in group.members"><span class="avatar sm av-{{m.id % 6}}">{{m.name | initials}}</span>{{m.name}}</span>
+        <span class="chip" ng-if="nonMembers.length" style="padding:4px 6px 4px 12px">
+            <select class="input" style="height:28px;border:0;padding:0 4px;width:auto" ng-model="sel.memberId"
+                    ng-options="u.id as u.name for u in nonMembers">
+                <option value="">+ Add member</option>
+            </select>
+            <button class="btn sm" ng-disabled="!sel.memberId" ng-click="addMember()">Add</button>
+        </span>
+    </div>
+
+    <div class="grid-2">
+        <!-- LEFT: add expense -->
+        <div class="card">
+            <div class="card-head"><h2>Add an expense</h2><span class="hint">saved through POST /api/groups/{{group.id}}/expenses</span></div>
+            <form name="ef" ng-submit="addExpense()" novalidate>
+                <div class="field">
+                    <label class="f">Description</label>
+                    <input class="input" ng-model="ex.description" required maxlength="150" placeholder="e.g. Dinner at Britto's">
+                </div>
+                <div class="row-3">
+                    <div>
+                        <label class="f">Amount (₹)</label>
+                        <input class="input" type="number" step="0.01" min="0.01" ng-model="ex.amount" required ng-change="recalc()" placeholder="0.00">
+                    </div>
+                    <div>
+                        <label class="f">Paid by</label>
+                        <select class="input" ng-model="ex.paidBy" ng-options="m.id as m.name for m in group.members" required></select>
+                    </div>
+                    <div>
+                        <label class="f">Date</label>
+                        <input class="input" type="date" ng-model="ex.date" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <label class="f">Category</label>
+                        <select class="input" ng-model="ex.category" ng-options="c for c in categories"></select>
+                    </div>
+                    <div>
+                        <label class="f">Split</label>
+                        <div class="seg">
+                            <button type="button" ng-repeat="t in splitTypes" ng-class="{on: ex.splitType==t.key}" ng-click="setType(t.key)">{{t.label}}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="who">
+                    <div class="who-row" ng-repeat="p in parts" ng-class="{off: !p.on}">
+                        <input type="checkbox" ng-model="p.on" ng-change="recalc()">
+                        <span class="avatar sm av-{{p.id % 6}}">{{p.name | initials}}</span>
+                        <span class="nm">{{p.name}}</span>
+                        <input class="input mini" type="number" step="0.01" min="0" ng-if="ex.splitType!='EQUAL'"
+                               ng-disabled="!p.on" ng-model="p.value" ng-change="recalc()" placeholder="{{ex.splitType=='PERCENT' ? '%' : '₹'}}">
+                        <span class="calc">{{p.on ? (p.share | inr) : '—'}}</span>
+                    </div>
+                </div>
+                <div class="split-status" ng-class="{bad: !splitOk}">
+                    <span>{{splitMsg}}</span><span>{{shareTotal | inr}} of {{(ex.amount || 0) | inr}}</span>
+                </div>
+                <button class="btn block accent" style="margin-top:14px" ng-disabled="ef.$invalid || !splitOk || saving">
+                    {{saving ? 'Saving…' : 'Add expense'}}
+                </button>
+            </form>
+        </div>
+
+        <!-- RIGHT: balances + settle up -->
+        <div class="stack">
+            <div class="card">
+                <div class="card-head"><h2>Balances</h2><span class="hint">paid − share ± settlements</span></div>
+                <div class="bal" ng-repeat="b in plan.balances">
+                    <div class="who-cell"><span class="avatar sm av-{{b.userId % 6}}">{{b.userName | initials}}</span>{{b.userName}}</div>
+                    <div class="bar-track">
+                        <div class="bar" ng-class="b.net >= 0 ? 'pos' : 'neg'" ng-style="{width: barWidth(b.net)}"></div>
+                    </div>
+                    <div class="amt" ng-class="b.net > 0 ? 'pos' : (b.net < 0 ? 'neg' : 'zero')">
+                        {{b.net > 0 ? '+' : ''}}{{b.net | inr}}
+                        <small>{{b.net > 0 ? 'gets back' : (b.net < 0 ? 'owes' : 'settled')}}</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-head"><h2>Settle up</h2><span class="hint">greedy min-cash-flow</span></div>
+                <div class="settle-banner" ng-if="!plan.settled">
+                    <span class="big">{{plan.simplifiedCount}}</span>
+                    <span class="txt"><b>payments clear every debt</b><br>instead of {{plan.pairwiseCount}} if everyone paid each other directly</span>
+                </div>
+                <div class="pay" ng-repeat="p in plan.payments">
+                    <span class="avatar sm av-{{p.fromUser % 6}}">{{p.fromName | initials}}</span>
+                    <span class="arrow">→</span>
+                    <span class="avatar sm av-{{p.toUser % 6}}">{{p.toName | initials}}</span>
+                    <span class="names"><b>{{p.fromName}}</b> pays <b>{{p.toName}}</b></span>
+                    <span class="money">{{p.amount | inr}}</span>
+                    <button class="btn sm" ng-click="settle(p)">Mark paid</button>
+                </div>
+                <div class="all-settled" ng-if="plan.settled">✓ Everyone is settled up</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top:22px">
+        <div class="card-head"><h2>Expense history</h2><span class="hint">{{expenses.length}} bills</span></div>
+        <table class="tbl" ng-if="expenses.length">
+            <thead><tr><th>Date</th><th>Description</th><th>Paid by</th><th>Split</th><th>Shares</th><th class="num">Amount</th><th></th></tr></thead>
+            <tbody>
+                <tr ng-repeat="e in expenses">
+                    <td style="white-space:nowrap">{{e.expenseDate | date:'dd MMM'}}</td>
+                    <td class="desc-cell"><b>{{e.description}}</b><span class="cat {{e.category}}"><i></i>{{e.category}}</span></td>
+                    <td style="white-space:nowrap">{{e.paidByName}}</td>
+                    <td><span class="tag {{e.splitType}}">{{e.splitType}}</span></td>
+                    <td style="font-size:12px;color:var(--ink-2)"><span ng-repeat="s in e.shares">{{s.userName.split(' ')[0]}} {{s.amount | inr}}{{$last ? '' : ' · '}}</span></td>
+                    <td class="num"><b>{{e.amount | inr}}</b></td>
+                    <td><button class="link-btn" ng-click="removeExpense(e)" title="Delete">✕</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="empty" ng-if="!expenses.length">No expenses yet. Add the first bill above.</div>
+    </div>
+
+    <div class="card" style="margin-top:22px" ng-if="settlements.length">
+        <div class="card-head"><h2>Payments recorded</h2><span class="hint">{{settlements.length}} recorded</span></div>
+        <table class="tbl">
+            <thead><tr><th>When</th><th>From</th><th>To</th><th>Note</th><th class="num">Amount</th></tr></thead>
+            <tbody>
+                <tr ng-repeat="s in settlements">
+                    <td>{{s.settledAt}}</td><td>{{s.fromName}}</td><td>{{s.toName}}</td>
+                    <td style="color:var(--ink-2)">{{s.note}}</td><td class="num"><b>{{s.amount | inr}}</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

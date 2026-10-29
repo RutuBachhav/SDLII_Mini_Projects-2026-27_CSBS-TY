@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seaside Grand Hotel - Room Booking</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/hotel.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="Home.html">Seaside Grand <span>Hotel</span></a>
+  <nav aria-label="Main">
+    <a href="addRoom.html">Add Room</a>
+    <a href="AvailableRoomsServlet">Rooms</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Seaside Grand &middot; Est. 2026</p>
+        <h1>Sleep where the <em>sea</em> meets the sky.</h1>
+        <p class="hero-sub">Browse available rooms below and reserve yours in under a minute. No queues, no phone calls &mdash; just pick a room and book.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="AvailableRoomsServlet">Book a Room</a>
+          <a class="btn btn-ghost" href="addRoom.html">Add Room</a>
+        </div>
+      </div>
+      <aside class="rate-card" aria-label="Tonight at a glance">
+        <p class="kicker">Tonight</p>
+        <h2>Rooms from Rs. 1,500</h2>
+        <p>Single to Suite &mdash; every stay includes breakfast and sea-facing mornings.</p>
+        <div class="rate-rows">
+          <div class="rate-row"><span>Single</span><strong>Rs. 1,500</strong></div>
+          <div class="rate-row"><span>Double</span><strong>Rs. 2,500</strong></div>
+          <div class="rate-row"><span>Deluxe &amp; Suite</span><strong>Rs. 4,000+</strong></div>
+        </div>
+        <a class="btn btn-primary btn-block" href="AvailableRoomsServlet">See Available Rooms</a>
+      </aside>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 C240,80 480,0 720,24 C960,48 1200,64 1440,32 L1440,64 L0,64 Z"/></svg>
+  </section>
+  <section class="section" aria-label="Room types">
+    <div class="section-head">
+      <p class="kicker">Stay your way</p>
+      <h2>Four ways to sleep by the sea</h2>
+      <p>Every category faces the water. Pick the one that fits your trip.</p>
+    </div>
+    <div class="types">
+      <a class="type stagger-1" href="AvailableRoomsServlet">
+        <span class="type-no">01</span>
+        <h3>Single</h3>
+        <p>Cosy room with a sea glimpse, made for solo travellers.</p>
+        <span class="type-price">from Rs. 1,500</span>
+      </a>
+      <a class="type stagger-2" href="AvailableRoomsServlet">
+        <span class="type-no">02</span>
+        <h3>Double</h3>
+        <p>Room for two, with space to spread out and unwind.</p>
+        <span class="type-price">from Rs. 2,500</span>
+      </a>
+      <a class="type stagger-3" href="AvailableRoomsServlet">
+        <span class="type-no">03</span>
+        <h3>Deluxe</h3>
+        <p>Private balcony, breakfast in bed, sunset views.</p>
+        <span class="type-price">from Rs. 4,000</span>
+      </a>
+      <a class="type stagger-4" href="AvailableRoomsServlet">
+        <span class="type-no">04</span>
+        <h3>Suite</h3>
+        <p>Top floor, full sea view, lounge access included.</p>
+        <span class="type-price">from Rs. 7,000</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section" aria-label="How booking works">
+    <div class="section-head">
+      <p class="kicker">How it works</p>
+      <h2>Booked in three steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-no">01</span>
+        <h3>Pick a room</h3>
+        <p>Browse rooms that are actually open tonight &mdash; no dead ends.</p>
+      </div>
+      <div class="step">
+        <span class="step-no">02</span>
+        <h3>Add your details</h3>
+        <p>Name, contact and dates. Takes under a minute, confirmation is instant.</p>
+      </div>
+      <div class="step">
+        <span class="step-no">03</span>
+        <h3>Show up &amp; check in</h3>
+        <p>Show your confirmation at the desk. Breakfast is already on us.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">&copy; 2026 Seaside Grand Hotel &middot; Hotel Room Booking System</footer>
+</body>
+</html>

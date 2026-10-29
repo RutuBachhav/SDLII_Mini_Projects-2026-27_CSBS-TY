@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courier Bay | Track Courier</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #172554;
+        }
+
+        header {
+            background: #102a56;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        h1 {
+            color: #102a56;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #1765a8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #102a56;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #102a56;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">COURIER <span>BAY</span></div>
+    <a href="index.html">← Back to Home</a>
+</header>
+
+<div class="container">
+
+    <h1>Track Your Courier</h1>
+
+    <p>Enter your tracking ID to check your shipment status.</p>
+
+    <form action="TrackServlet" method="get">
+
+        <input type="text"
+               name="tracking_id"
+               placeholder="Enter Tracking ID"
+               required>
+
+        <button type="submit">Track Courier</button>
+
+    </form>
+
+</div>
+
+<footer>
+    © 2026 Courier Bay | Your Parcel, Our Priority.
+</footer>
+
+</body>
+</html>

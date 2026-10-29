@@ -1,0 +1,40 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: cloth-factory-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: cloth_factory
+      MYSQL_USER: cloth_app
+      MYSQL_PASSWORD: cloth_app_dev_password
+      MYSQL_ROOT_PASSWORD: root_dev_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - cloth_factory_mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot_dev_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    image: tomcat:10.1-jdk21-temurin
+    container_name: cloth-factory-tomcat
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:mysql://host.docker.internal:3306/cloth_factory?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      DB_USER: cloth_app
+      DB_PASSWORD: cloth_app_dev_password
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/cloth-factory-inventory.war:/usr/local/tomcat/webapps/ROOT.war:ro
+
+volumes:
+  cloth_factory_mysql_data:

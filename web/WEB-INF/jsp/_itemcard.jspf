@@ -1,0 +1,28 @@
+<%-- One report card. Expects the loop variable `it`. --%>
+<article class="item-card">
+    <a class="item-thumb" href="${ctx}/items/view?id=${it.id}">
+        <c:choose>
+            <c:when test="${it.hasPhoto}">
+                <img src="${ctx}/photo?id=${it.photoId}" alt="Photograph of ${fn:escapeXml(it.title)}" loading="lazy">
+            </c:when>
+            <c:otherwise><span class="no-photo">No photo</span></c:otherwise>
+        </c:choose>
+    </a>
+    <div class="item-body">
+        <div class="item-meta">
+            <span class="chip ${it.lost ? 'chip-lost' : 'chip-found'}">${it.lost ? 'Lost' : 'Found'}</span>
+            <span class="chip chip-${fn:toLowerCase(it.status)}">${fn:toLowerCase(it.status)}</span>
+            <span class="chip chip-open"><c:out value="${it.categoryName}" /></span>
+        </div>
+        <h3><a href="${ctx}/items/view?id=${it.id}"><c:out value="${it.title}" /></a></h3>
+        <p class="item-desc"><c:out value="${it.description}" /></p>
+        <div class="item-row">
+            <span><c:out value="${it.location}" /></span>
+            <span class="mono">${it.itemDateLabel}</span>
+        </div>
+        <div class="item-foot">
+            <span class="hint">by <c:out value="${it.reporterName}" /></span>
+            <a class="btn btn-ghost btn-sm" href="${ctx}/items/view?id=${it.id}">Open</a>
+        </div>
+    </div>
+</article>

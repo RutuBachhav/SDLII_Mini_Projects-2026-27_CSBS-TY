@@ -1,0 +1,30 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+String activePage = request.getRequestURI();
+String ctx = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParkEase | Smart Parking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%=ctx%>/assets/style.css">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <a class="brand" href="<%=ctx%>/index.jsp"><span class="brand-mark">P</span><span>park<span class="brand-light">ease</span><small>SMART PARKING</small></span></a>
+  <div class="nav-label">WORKSPACE</div>
+  <nav class="nav">
+    <a class="<%=activePage.endsWith("index.jsp") ? "active" : ""%>" href="<%=ctx%>/index.jsp"><span class="nav-icon">▦</span> Overview</a>
+    <a class="<%=activePage.endsWith("entry.jsp") ? "active" : ""%>" href="<%=ctx%>/entry.jsp"><span class="nav-icon">＋</span> Vehicle entry</a>
+    <a class="<%=activePage.endsWith("slots.jsp") ? "active" : ""%>" href="<%=ctx%>/slots.jsp"><span class="nav-icon">▤</span> Parking slots</a>
+    <a class="<%=activePage.endsWith("history.jsp") ? "active" : ""%>" href="<%=ctx%>/history.jsp"><span class="nav-icon">◷</span> Parking history</a>
+  </nav>
+  <div class="sidebar-bottom"><div class="support-icon">✦</div><strong>Parking, simplified.</strong><p>One clear view of your entire parking space.</p><span class="version">PARKEASE · VERSION 1.0</span></div>
+</aside>
+<main class="main-content">
+<header class="topbar"><div><span class="eyebrow">PARKING OPERATIONS</span><h2>Good day, Admin <span class="wave">✦</span></h2></div><div class="top-actions"><span class="live-dot"></span><span class="live-label">System online</span><div class="avatar">A</div></div></header>

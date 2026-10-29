@@ -1,0 +1,57 @@
+/* CampusCare - restrained motion layer (v3). Loaded after theme.css. */
+
+/* Auth entrance */
+.auth-card-desktop, .auth-card-register { animation: rise .7s cubic-bezier(.2,.8,.2,1) both; }
+.auth-left-pane > .campus-intro-badge, .auth-left-pane > .campus-hero-title, .auth-left-pane > .campus-hero-desc { animation: fadeUp .7s cubic-bezier(.2,.8,.2,1) both; }
+.auth-left-pane > .campus-hero-title { animation-delay: .1s; }
+.auth-left-pane > .campus-hero-desc { animation-delay: .2s; }
+.steps li { animation: fadeUp .6s cubic-bezier(.2,.8,.2,1) both; }
+.steps li:nth-child(1) { animation-delay: .35s; } .steps li:nth-child(2) { animation-delay: .5s; } .steps li:nth-child(3) { animation-delay: .65s; }
+
+/* Illustration */
+.cloud { animation: cloud 60s linear infinite; }
+.cloud.b { animation-duration: 90s; animation-delay: -35s; }
+.win { animation: lamp 5s ease-in-out infinite; }
+.win:nth-of-type(2n) { animation-delay: -1.7s; }
+.win:nth-of-type(3n) { animation-delay: -3.1s; }
+.flag { transform-box: fill-box; transform-origin: 0 50%; animation: wave 2s ease-in-out infinite; }
+.clock-hand { transform-box: fill-box; transform-origin: 50% 100%; animation: tick 60s linear infinite; }
+.clock-hand.h { animation-duration: 720s; }
+.bird { animation: fly 22s linear infinite; }
+.bird.b { animation-duration: 30s; animation-delay: -12s; }
+
+/* Rotating word */
+.rotator { display: inline-block; }
+.rotator.swap { animation: swap .5s ease; }
+
+/* Portal */
+#main-view-content { animation: pageIn .4s cubic-bezier(.2,.8,.2,1) both; }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+.page-title::after { content: ''; display: block; height: 3px; width: 0; margin-top: .5rem; background: var(--brick); animation: grow .7s .15s ease forwards; }
+tbody tr { animation: rowIn .35s ease both; }
+.modal-overlay.active .modal-dialog { animation: pop .3s cubic-bezier(.2,1.1,.4,1); }
+.notif-btn:hover svg { animation: ring .6s ease; transform-origin: 50% 0; }
+.btn { position: relative; overflow: hidden; }
+.ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,.4); transform: scale(0); animation: ripple .55s ease-out forwards; pointer-events: none; }
+.btn-secondary .ripple { background: rgba(29,38,32,.15); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes cloud { from { transform: translateX(-140px); } to { transform: translateX(700px); } }
+@keyframes lamp { 0%,100% { opacity: .45; } 50% { opacity: 1; } }
+@keyframes wave { 0%,100% { transform: skewY(0) scaleX(1); } 50% { transform: skewY(7deg) scaleX(.9); } }
+@keyframes tick { to { transform: rotate(360deg); } }
+@keyframes fly { from { transform: translate(-40px, 0); } 50% { transform: translate(300px, -14px); } to { transform: translate(660px, 0); } }
+@keyframes swap { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes pageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes grow { to { width: 56px; } }
+@keyframes rowIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
+@keyframes pop { from { transform: scale(.95) translateY(14px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes ring { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-14deg); } 50% { transform: rotate(12deg); } 75% { transform: rotate(-6deg); } }
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}

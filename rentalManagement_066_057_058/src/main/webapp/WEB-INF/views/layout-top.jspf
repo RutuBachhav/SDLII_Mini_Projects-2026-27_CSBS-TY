@@ -1,0 +1,113 @@
+
+<%@ page import="com.mycompany.rentalmanagement.util.WebUtil" %>
+<%
+    String ctx = request.getContextPath();
+
+    String pageTitle = (String) request.getAttribute("pageTitle");
+    if (pageTitle == null) {
+        pageTitle = "DriveFlow";
+    }
+
+    String active = (String) request.getAttribute("active");
+    if (active == null) {
+        active = "";
+    }
+
+    Object flash = session.getAttribute("flash");
+    Object flashError = session.getAttribute("flashError");
+
+    session.removeAttribute("flash");
+    session.removeAttribute("flashError");
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= WebUtil.esc(pageTitle) %> | DriveFlow</title>
+    <link rel="stylesheet"
+      href="<%= request.getContextPath() %>/assets/app.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <a class="brand" href="<%= ctx %>/dashboard">
+            DRIVEFLOW
+            <span>RENTAL MANAGEMENT</span>
+        </a>
+
+        <nav>
+            <a class="<%= active.equals("dashboard") ? "active" : "" %>"
+               href="<%= ctx %>/dashboard">
+                Overview
+            </a>
+
+            <a class="<%= active.equals("vehicles") ? "active" : "" %>"
+               href="<%= ctx %>/vehicles">
+                Vehicles
+            </a>
+
+            <a class="<%= active.equals("customers") ? "active" : "" %>"
+               href="<%= ctx %>/customers">
+                Customers
+            </a>
+
+            <a class="<%= active.equals("rentals") ? "active" : "" %>"
+               href="<%= ctx %>/rentals">
+                Rentals &amp; Returns
+            </a>
+
+            <a class="<%= active.equals("payments") ? "active" : "" %>"
+               href="<%= ctx %>/payments">
+                Payments
+            </a>
+
+            <a class="<%= active.equals("reports") ? "active" : "" %>"
+               href="<%= ctx %>/reports">
+                Reports
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <span>
+                Signed in as
+                <strong>
+                    <%= WebUtil.esc(session.getAttribute("user")) %>
+                </strong>
+            </span>
+
+            <a href="<%= ctx %>/logout">Sign out ?</a>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <div class="eyebrow">VEHICLE RENTAL OPERATIONS</div>
+                <div class="welcome">
+                    Hello,
+                    <%= WebUtil.esc(session.getAttribute("user")) %>
+                </div>
+            </div>
+
+            <div class="top-actions">
+                <span class="live-dot">System online</span>
+            </div>
+        </header>
+
+        <% if (flash != null) { %>
+            <div class="alert success">
+                <%= WebUtil.esc(flash) %>
+            </div>
+        <% } %>
+
+        <% if (flashError != null) { %>
+            <div class="alert error">
+                <%= WebUtil.esc(flashError) %>
+            </div>
+        <% } %>

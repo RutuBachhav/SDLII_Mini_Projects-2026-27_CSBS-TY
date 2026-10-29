@@ -1,0 +1,24 @@
+Project structure
+-----------------
+ParkEaseParkingSystem/
+  pom.xml
+  README_FIRST.txt
+  PROJECT_STRUCTURE.txt
+  database/schema.sql
+  src/main/java/com/parkease/util/DBUtil.java
+  src/main/java/com/parkease/util/DatabaseInitializer.java
+  src/main/java/com/parkease/web/ParkingServlet.java
+  src/main/webapp/index.jsp
+  src/main/webapp/entry.jsp
+  src/main/webapp/slots.jsp
+  src/main/webapp/history.jsp
+  src/main/webapp/includes/header.jspf
+  src/main/webapp/includes/footer.jspf
+  src/main/webapp/assets/style.css
+  src/main/webapp/WEB-INF/web.xml
+
+Database tables:
+- parking_slots: slot code, vehicle category, availability
+- parking_sessions: vehicle, owner, slot, entry time, exit time, fee, status
+
+The JSP pages query MySQL directly for this student project starter. Business operations (check-in/check-out) go through ParkingServlet.

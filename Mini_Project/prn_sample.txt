@@ -1,0 +1,30 @@
+
+Experiment 2
+1.1 Title: Using suitable public domain dataset in UCI ML repository, apply different ensemble algorithms and compare the results.
+1.2 Input: UCI ML repository data : The UCI Machine Learning Repository provides a collection of real-world datasets commonly used for machine learning research and education. For this mini-project, you will select an appropriate dataset from this repository, such as the Iris, Wine, or Heart Disease dataset.
+Dataset Selection Criteria:
+The dataset should have a clear problem statement (classification or regression).
+The dataset should be suitable for applying ensemble techniques (reasonable number of features and observations).
+Ensure the dataset is balanced, cleaned, or pre-processed if necessary.
+1.3 Theory: Ensemble Learning is a powerful machine learning technique where multiple models, often called base learners or weak learners, are combined to improve overall performance. The idea is that a group of weak learners can come together to form a strong learner. Ensemble algorithms help to reduce variance, bias, and improve accuracy. The most popular ensemble methods include Bagging, Boosting, and Stacking.
+Ensemble Algorithms to Apply:
+1.Bagging (Bootstrap Aggregating):
+oIn bagging, multiple versions of a base learner are trained on different subsets of the dataset (using sampling with replacement).
+oCommon algorithm: Random Forest (based on decision trees).
+2.Boosting:
+oBoosting builds models sequentially, where each model attempts to correct errors made by the previous one.
+oCommon algorithms: AdaBoost, Gradient Boosting, XGBoost, LightGBM, CatBoost.
+3.Stacking:
+oStacking involves training multiple models (first-level learners) and then using another model (meta-learner) to combine the predictions from the first-level models.
+oIn stacking, models like decision trees, SVMs, or neural networks are often used as base learners.
+Steps to Follow:
+1.Dataset Loading and Preprocessing:
+oSelect the dataset from the UCI ML Repository and load it using a suitable library such as pandas.
+oHandle missing values, encode categorical features (if any), and perform normalization/standardization if required.
+2.Train-Test Split:
+oSplit the dataset into training and testing sets (e.g., 70% training, 30% testing).
+3.Applying Ensemble Models:
+oImplement Random Forest for bagging.
+oApply Gradient Boosting and XGBoost for boosting.
+oPerform Stacking with multiple base learners like decision trees, SVMs, or logistic regression.
+4.Evalu

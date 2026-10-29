@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courier Bay | Book Courier</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #172554;
+        }
+
+        header {
+            background: #102a56;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 35px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #102a56;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            color: #1765a8;
+            margin: 25px 0 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #1765a8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #102a56;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #102a56;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">COURIER <span>BAY</span></div>
+    <a href="index.html">← Back to Home</a>
+</header>
+
+<div class="container">
+
+    <h1>Book Your Courier</h1>
+    <p class="subtitle">Enter your shipment details below.</p>
+
+    <form action="BookingServlet" method="post">
+
+        <h3>Sender Details</h3>
+
+        <label>Sender Name</label>
+        <input type="text" name="sender_name" required>
+
+        <label>Sender Phone</label>
+        <input type="tel" name="sender_phone" required>
+
+        <label>Pickup Address</label>
+        <textarea name="pickup_address" required></textarea>
+
+        <h3>Receiver Details</h3>
+
+        <label>Receiver Name</label>
+        <input type="text" name="receiver_name" required>
+
+        <label>Receiver Phone</label>
+        <input type="tel" name="receiver_phone" required>
+
+        <label>Delivery Address</label>
+        <textarea name="delivery_address" required></textarea>
+
+        <h3>Courier Details</h3>
+
+        <label>Courier Type</label>
+        <select name="courier_type" required>
+            <option value="">Select Courier Type</option>
+            <option value="Document">Document</option>
+            <option value="Parcel">Parcel</option>
+            <option value="Fragile">Fragile Item</option>
+            <option value="Express">Express Delivery</option>
+        </select>
+
+        <label>Parcel Weight (in kg)</label>
+        <input type="number" name="weight" min="0.1" step="0.1" required>
+
+        <button type="submit">Book Courier</button>
+
+    </form>
+
+</div>
+
+<footer>
+    © 2026 Courier Bay | Your Parcel, Our Priority.
+</footer>
+
+</body>
+</html>

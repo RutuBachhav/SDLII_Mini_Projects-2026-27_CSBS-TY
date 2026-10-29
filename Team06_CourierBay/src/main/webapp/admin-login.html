@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courier Bay | Admin Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-box {
+            background: white;
+            width: 400px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #102a56;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #102a56;
+            margin-bottom: 25px;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #1765a8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #102a56;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 22px;
+            color: #1765a8;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <div class="logo">COURIER <span>BAY</span></div>
+
+        <h1>Admin Login</h1>
+
+        <p>Login to manage courier bookings.</p>
+
+        <form action="AdminLoginServlet" method="post">
+
+            <input type="text"
+                   name="username"
+                   placeholder="Enter Admin Username"
+                   required>
+
+            <input type="password"
+                   name="password"
+                   placeholder="Enter Admin Password"
+                   required>
+
+            <button type="submit">Login</button>
+
+        </form>
+
+        <a href="index.html" class="back-link">Back to Home</a>
+
+    </div>
+
+</body>
+</html>
