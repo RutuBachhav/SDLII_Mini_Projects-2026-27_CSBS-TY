@@ -1,0 +1,57 @@
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${empty pageTitle ? 'FoundIt' : pageTitle} &middot; FoundIt</title>
+    <link rel="stylesheet" href="${ctx}/assets/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="${ctx}/assets/css/app.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="wrap topbar-inner">
+        <a class="brand" href="${ctx}/home">
+            <span class="brand-mark">FI</span>
+            FoundIt
+        </a>
+        <nav class="nav">
+            <a href="${ctx}/browse" class="${nav eq 'browse' ? 'active' : ''}">Browse</a>
+            <a href="${ctx}/report?type=LOST" class="${nav eq 'report' ? 'active' : ''}">Report an item</a>
+            <c:if test="${not empty user}">
+                <a href="${ctx}/dashboard" class="${nav eq 'dashboard' ? 'active' : ''}">Dashboard</a>
+                <a href="${ctx}/claims/review" class="${nav eq 'review' ? 'active' : ''}">Claims to review</a>
+                <a href="${ctx}/claims/mine" class="${nav eq 'mine' ? 'active' : ''}">My claims</a>
+            </c:if>
+            <c:if test="${not empty user and user.admin}">
+                <a href="${ctx}/admin" class="${nav eq 'admin' ? 'active' : ''}">Admin</a>
+            </c:if>
+        </nav>
+        <div class="topbar-right">
+            <c:choose>
+                <c:when test="${empty user}">
+                    <a class="btn btn-ghost btn-sm" href="${ctx}/login">Sign in</a>
+                    <a class="btn btn-sm" href="${ctx}/register">Create account</a>
+                </c:when>
+                <c:otherwise>
+                    <a class="bell" href="${ctx}/notifications" title="Notifications">
+                        Alerts<c:if test="${unread gt 0}"><span class="count">${unread}</span></c:if>
+                    </a>
+                    <span class="who">${user.name}</span>
+                    <form method="post" action="${ctx}/logout" style="margin:0">
+                        <input type="hidden" name="csrf" value="${csrf}">
+                        <button class="btn btn-ghost btn-sm" type="submit">Sign out</button>
+                    </form>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+</header>
+
+<main class="wrap">
+<c:if test="${not empty flash}">
+    <div class="alert alert-${flashKind eq 'error' ? 'error' : (flashKind eq 'success' ? 'success' : 'note')}">
+        <c:out value="${flash}" />
+    </div>
+</c:if>

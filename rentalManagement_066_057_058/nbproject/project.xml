@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+  <type>org.netbeans.modules.maven</type>
+  <configuration>
+    <data xmlns="http://www.netbeans.org/ns/maven-project/1">
+      <groupId>com.driveflow</groupId><artifactId>DriveFlow</artifactId><version>1.0.0</version>
+    </data>
+  </configuration>
+</project>

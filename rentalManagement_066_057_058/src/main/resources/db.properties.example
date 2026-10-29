@@ -1,0 +1,4 @@
+# Copy to db.properties and change these values for your local MySQL installation
+db.url=jdbc:mysql://localhost:3306/driveflow?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+db.username=driveflow_user
+db.password=change_me

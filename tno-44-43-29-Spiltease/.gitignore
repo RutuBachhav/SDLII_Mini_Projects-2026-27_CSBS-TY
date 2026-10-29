@@ -1,0 +1,12 @@
+ # Maven build output
+   target/
+
+   # NetBeans personal settings
+   nbproject/private/
+   nb-configuration.xml
+   nbactions.xml
+
+   # OS / editor junk
+   .DS_Store
+   Thumbs.db
+   *.log
