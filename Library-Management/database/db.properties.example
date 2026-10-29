@@ -1,0 +1,8 @@
+# Example JDBC settings. Copy values into src/java/db.properties
+# (that file is packaged into WEB-INF/classes).
+db.url=jdbc:mysql://localhost:3306/library_management?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+db.user=root
+db.password=your_local_password
+db.driver=com.mysql.cj.jdbc.Driver
+loan.period.days=14
+fine.per.day=5.00
