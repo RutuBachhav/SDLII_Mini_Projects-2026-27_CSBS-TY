@@ -1,0 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<% String ctx=request.getContextPath(); String uri=request.getRequestURI(); %>
+<div class="layout"><aside class="sidebar"><a class="brand" href="<%=ctx%>/dashboard"><span class="brand-mark">🚗</span>DriveFlow</a><div class="nav-label">Workspace</div><nav class="nav">
+<a class="<%=uri.endsWith("/dashboard")?"active":""%>" href="<%=ctx%>/dashboard">▦ <span>Dashboard</span></a>
+<a class="<%=uri.endsWith("/vehicles")?"active":""%>" href="<%=ctx%>/vehicles">🚙 <span>Vehicles</span></a>
+<a class="<%=uri.endsWith("/customers")?"active":""%>" href="<%=ctx%>/customers">👥 <span>Customers</span></a>
+<a class="<%=uri.endsWith("/rentals")?"active":""%>" href="<%=ctx%>/rentals">📋 <span>Rentals</span></a>
+<a class="<%=uri.endsWith("/payments")?"active":""%>" href="<%=ctx%>/payments">💳 <span>Payments</span></a>
+<a class="<%=uri.endsWith("/reports")?"active":""%>" href="<%=ctx%>/reports">📊 <span>Reports</span></a></nav><div class="nav-label">Account</div><nav class="nav"><a href="<%=ctx%>/logout">↪ <span>Logout</span></a></nav></aside><main class="main"><header class="topbar"><h1>Vehicle Rental Management</h1><div class="user"><span>Administrator</span><span class="avatar">A</span></div></header><div class="content">
+<% String ft=(String)session.getAttribute("flashType"); String fm=(String)session.getAttribute("flashMessage"); if(fm!=null){session.removeAttribute("flashType");session.removeAttribute("flashMessage"); %><div class="alert <%= "success".equals(ft)?"alert-success":"alert-error" %>"><%=fm%></div><%}%>

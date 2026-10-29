@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="splitEase">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="SplitEase - split group expenses fairly and settle up with the fewest payments">
+    <title>SplitEase | Group Expense Splitter</title>
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- HTML5 semantic header + navigation -->
+    <header class="topbar" ng-controller="NavCtrl">
+        <a class="logo" href="#!/"><span class="logo-mark">S</span>SplitEase <small>Group Expense Splitter</small></a>
+        <nav class="nav">
+            <a href="#!/" ng-class="{active: isActive('/')}">Dashboard</a>
+            <a href="#!/people" ng-class="{active: isActive('/people')}">People</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="api-chip"><i></i>REST API · GlassFish</span>
+    </header>
+
+    <!-- AngularJS swaps the current view in here (single-page application) -->
+    <main ng-view></main>
+
+    <!-- jQuery-driven confirm dialog -->
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="confirmModal" role="dialog" aria-modal="true">
+        <h3 id="confirmTitle">Are you sure?</h3>
+        <p id="confirmText"></p>
+        <div class="actions">
+            <button class="btn ghost" id="confirmNo">Cancel</button>
+            <button class="btn accent" id="confirmYes">Delete</button>
+        </div>
+    </div>
+    <div id="toasts" aria-live="polite"></div>
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/angular-route.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

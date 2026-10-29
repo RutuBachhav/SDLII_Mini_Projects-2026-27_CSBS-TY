@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Management System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .container {
+            width: 100%;
+            max-width: 520px;
+            background: #ffffff;
+            padding: 36px 36px 32px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .header { text-align: center; margin-bottom: 28px; }
+        .icon {
+            width: 56px; height: 56px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            color: #fff; font-size: 26px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        h2 { color: #1e293b; font-size: 24px; margin-bottom: 6px; }
+        .subtitle { color: #64748b; font-size: 14px; }
+        label { display: block; margin: 18px 0 6px; font-weight: 600; font-size: 14px; color: #334155; }
+        select, textarea {
+            width: 100%; padding: 12px 14px; font-size: 15px; font-family: inherit;
+            border: 2px solid #e2e8f0; border-radius: 10px;
+            background: #f8fafc; color: #1e293b; outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+        select:focus, textarea:focus {
+            border-color: #3b82f6; background: #fff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+        textarea { height: 130px; resize: vertical; }
+        .hint { font-size: 12px; color: #94a3b8; margin-top: 4px; text-align: right; }
+        button {
+            width: 100%; padding: 14px; margin-top: 24px;
+            font-size: 16px; font-weight: 600; color: #fff;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            border: none; border-radius: 10px; cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.2s;
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4); }
+        button:active { transform: translateY(0); }
+        .footer { text-align: center; margin-top: 18px; font-size: 12px; color: #94a3b8; }
+        @media (max-width: 560px) { .container { padding: 28px 22px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">&#9998;</div>
+            <h2>Submit Complaint</h2>
+            <p class="subtitle">We will get back to you shortly</p>
+        </div>
+        <form action="ComplaintServlet" method="post">
+            <label for="complaintType">Complaint Type</label>
+            <select id="complaintType" name="complaintType" required>
+                <option value="">Select Complaint Type</option>
+                <option value="Technical">Technical</option>
+                <option value="Service">Service</option>
+                <option value="Billing">Billing</option>
+                <option value="Other">Other</option>
+            </select>
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Describe your issue in detail (min. 10 characters)" minlength="10" maxlength="500" required></textarea>
+            <div class="hint"><span id="count">0 / 500</span></div>
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+            <button type="submit">Submit Complaint</button>
+        </form>
+        <div class="footer">Complaint Management System</div>
+    </div>
+    <script>
+        var ta = document.getElementById('description');
+        ta.addEventListener('input', function () {
+            document.getElementById('count').textContent = ta.value.length + ' / 500';
+        });
+    </script>
+</body>
+</html>

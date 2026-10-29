@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+    xmlns="https://jakarta.ee/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence 
+    https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <persistence-unit name="HotelBookingPU" transaction-type="RESOURCE_LOCAL">
+
+        <provider>
+            org.eclipse.persistence.jpa.PersistenceProvider
+        </provider>
+
+        <!-- GlassFish JDBC resource (pool HotelBookingPool).
+             DB host/user/password live in the pool, not here. -->
+        <non-jta-data-source>jdbc/hotelbooking</non-jta-data-source>
+
+        <!-- Entity Classes -->
+        <class>com.entity.Room</class>
+        <class>com.entity.Booking</class>
+
+        <properties>
+
+            <!-- EclipseLink Table Generation -->
+            <property name="eclipselink.ddl-generation"
+                      value="create-or-extend-tables"/>
+
+            <!-- Display SQL Queries -->
+            <property name="eclipselink.logging.level"
+                      value="FINE"/>
+
+        </properties>
+
+    </persistence-unit>
+
+</persistence>

@@ -1,0 +1,83 @@
+<section class="page fade-in">
+    <div class="page-head">
+        <div>
+            <h1>Dashboard</h1>
+            <p>Track shared expenses across trips, flats and events and settle up with the fewest payments.</p>
+        </div>
+        <button class="btn accent" ng-click="openNewGroup()">+ New group</button>
+    </div>
+
+    <!-- Stat cards: filled with jQuery $.getJSON + animated counters -->
+    <div class="stats">
+        <div class="stat feature">
+            <div class="label">Total spent</div>
+            <div class="value">₹<span class="js-count" id="statSpent" data-decimals="0">0</span></div>
+            <div class="sub">across all groups</div>
+        </div>
+        <div class="stat">
+            <div class="label">Groups</div>
+            <div class="value js-count" id="statGroups">0</div>
+            <div class="sub">active groups</div>
+        </div>
+        <div class="stat">
+            <div class="label">Expenses</div>
+            <div class="value js-count" id="statExpenses">0</div>
+            <div class="sub">bills recorded</div>
+        </div>
+        <div class="stat">
+            <div class="label">Settled</div>
+            <div class="value">₹<span class="js-count" id="statSettled">0</span></div>
+            <div class="sub">paid back between members</div>
+        </div>
+    </div>
+
+    <div class="card-head"><h2>Your groups</h2><span class="hint">{{groups.length}} groups</span></div>
+    <div class="grid-3">
+        <a class="group-card" ng-repeat="g in groups" ng-href="#!/groups/{{g.id}}">
+            <div class="gc-top">
+                <div class="group-icon">{{g.name | initials}}</div>
+                <div>
+                    <h3>{{g.name}}</h3>
+                    <span class="hint" style="font-size:12px;color:var(--ink-3)">Created {{g.createdAt}}</span>
+                </div>
+            </div>
+            <p class="desc">{{g.description || 'No description'}}</p>
+            <div class="gc-foot">
+                <span><b>{{g.memberCount}}</b> members · <b>{{g.expenseCount}}</b> bills</span>
+                <b>{{g.totalSpent | inr}}</b>
+            </div>
+        </a>
+        <button class="new-card" ng-click="openNewGroup()">
+            <span><span class="plus">+</span>Create a group</span>
+        </button>
+    </div>
+
+    <!-- New group form (AngularJS form validation) -->
+    <div class="overlay" style="display:block" ng-if="showNew" ng-click="$parent.showNew=false"></div>
+    <div class="modal" style="display:block" ng-if="showNew">
+        <h3>Create a group</h3>
+        <p>Pick a name and at least two people.</p>
+        <form name="gf" ng-submit="createGroup()" novalidate>
+            <div class="field">
+                <label class="f">Group name</label>
+                <input class="input" ng-model="newG.name" required minlength="2" maxlength="100" placeholder="e.g. Goa Trip 2026">
+            </div>
+            <div class="field">
+                <label class="f">Description</label>
+                <input class="input" ng-model="newG.description" maxlength="255" placeholder="Optional">
+            </div>
+            <label class="f">Members ({{selectedCount()}} selected)</label>
+            <div class="pick">
+                <label class="who-row" ng-repeat="u in users">
+                    <input type="checkbox" ng-model="newG.pick[u.id]">
+                    <span class="avatar sm av-{{u.id % 6}}">{{u.name | initials}}</span>
+                    <span class="nm">{{u.name}}</span>
+                </label>
+            </div>
+            <div class="actions">
+                <button type="button" class="btn ghost" ng-click="$parent.showNew=false">Cancel</button>
+                <button class="btn" ng-disabled="gf.$invalid || selectedCount() < 2">Create group</button>
+            </div>
+        </form>
+    </div>
+</section>
