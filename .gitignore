@@ -1,8 +1,14 @@
-target/
-*.war
-*.class
-*.jar
-.DS_Store
+# Developer notes and working files - not part of the submission
+dev/
+
+# NetBeans build output
+build/
+dist/
+nbproject/private/
+
+# OS and editor noise
 Thumbs.db
-*.log
-.nb-cache/
+desktop.ini
+.DS_Store
+*~
+*.swp

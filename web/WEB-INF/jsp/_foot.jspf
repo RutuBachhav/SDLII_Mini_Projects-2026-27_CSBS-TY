@@ -1,0 +1,11 @@
+</main>
+
+<footer class="wrap footer">
+    <span>FoundIt &middot; campus lost and found &middot; Jakarta EE, Servlets, JSP, JDBC, MySQL</span>
+    <span>A match is a hint, never proof of ownership.</span>
+</footer>
+
+<script src="${ctx}/assets/vendor/bootstrap.bundle.min.js"></script>
+<script src="${ctx}/assets/js/app.js"></script>
+</body>
+</html>
