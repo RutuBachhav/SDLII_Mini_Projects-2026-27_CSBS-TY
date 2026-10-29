@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Courier Bay | Courier Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #172554;
+        }
+
+        header {
+            background: #102a56;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        .hero {
+            min-height: 440px;
+            background: linear-gradient(120deg, #102a56, #1765a8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 8%;
+            gap: 30px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hero img {
+            width: 300px;
+            max-width: 40%;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #38bdf8;
+            color: #102a56;
+            padding: 14px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: white;
+        }
+
+        .features {
+            padding: 55px 8%;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 32px;
+            margin-bottom: 35px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        }
+
+        .card h3 {
+            color: #1765a8;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 18px;
+            color: #1765a8;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #102a56;
+            color: white;
+            text-align: center;
+            padding: 22px;
+            line-height: 1.8;
+        }
+
+        @media(max-width: 700px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 8px;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .hero img {
+                max-width: 80%;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header and Navigation -->
+    <header>
+
+        <div class="logo">
+            COURIER <span>BAY</span>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#features">Services</a>
+            <a href="booking.html">Book Courier</a>
+            <a href="track.html">Track Courier</a>
+            <a href="admin-login.html">Admin</a>
+        </nav>
+
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>Your Parcel, Our Priority.</h1>
+
+            <p>
+                Welcome to Courier Bay. Manage your shipments,
+                register couriers and track deliveries with ease.
+                Fast, secure and reliable courier management.
+            </p>
+
+            <a href="booking.html" class="btn">
+                Book Your Courier
+            </a>
+
+        </div>
+
+        <img
+            src="https://cdn-icons-png.flaticon.com/512/679/679720.png"
+            alt="Courier Parcel">
+
+    </section>
+
+    <!-- Services Section -->
+    <section class="features" id="features">
+
+        <h2>Our Services</h2>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>📦 Courier Booking</h3>
+
+                <p>
+                    Register new courier shipments and save sender
+                    and receiver details securely.
+                </p>
+
+                <a href="booking.html">Book Now →</a>
+
+            </div>
+
+            <div class="card">
+
+                <h3>🚚 Track Shipment</h3>
+
+                <p>
+                    Check your courier tracking number and find
+                    the latest delivery status.
+                </p>
+
+                <a href="track.html">Track Now →</a>
+
+            </div>
+
+            <div class="card">
+
+                <h3>⚡ Fast Delivery</h3>
+
+                <p>
+                    Manage courier records and delivery updates
+                    through one simple system.
+                </p>
+
+                <a href="booking.html">Get Started →</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+
+        <p>© 2026 Courier Bay | Courier Management System</p>
+
+        <p>Your Parcel, Our Priority.</p>
+
+    </footer>
+
+</body>
+</html>
