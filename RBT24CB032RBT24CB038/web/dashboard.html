@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Task Planner</title>
+
+<style>
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6fb;
+    color: #202b43;
+}
+header {
+    background: #273c75;
+    color: white;
+    padding: 22px 7%;
+}
+header h1 { margin: 0 0 6px; }
+header p { margin: 0; color: #e0e7ff; }
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 28px auto;
+}
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.stat, .panel {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 3px 15px #1828480d;
+}
+.stat p { color: #64748b; margin: 0 0 8px; }
+.stat h2 { margin: 0; font-size: 30px; }
+.panel { margin-bottom: 22px; }
+.panel h2 { margin-top: 0; }
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    font-size: 14px;
+}
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d5dbea;
+    border-radius: 7px;
+    font-size: 15px;
+    background: white;
+}
+button {
+    border: 0;
+    padding: 11px 16px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.primary { background: #273c75; color: white; }
+.secondary { background: #e7edff; color: #273c75; }
+.danger { background: #fee2e2; color: #b91c1c; }
+.form-actions { margin-top: 18px; }
+.toolbar {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+.task {
+    border: 1px solid #e6eaf2;
+    border-radius: 9px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+}
+.task h3 { margin: 0 0 7px; }
+.task p { margin: 5px 0; color: #64748b; font-size: 14px; }
+.task.completed h3 { text-decoration: line-through; color: #64748b; }
+.task-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    background: #fef3c7;
+    color: #92400e;
+}
+.badge.done { background: #dcfce7; color: #166534; }
+#message { margin-top: 12px; font-size: 14px; }
+.empty { text-align: center; color: #64748b; padding: 25px; }
+footer { text-align: center; padding: 20px; color: #64748b; }
+@media(max-width:650px) {
+    .toolbar { grid-template-columns: 1fr; }
+    .task { align-items: flex-start; flex-direction: column; }
+}
+</style>
+</head>
+
+<body>
+<header>
+    <h1>Student Task Planner</h1>
+    <p>Organize your studies. Track your progress. Meet your deadlines.</p>
+</header>
+
+<main class="container">
+    <section class="stats">
+        <div class="stat">
+            <p>Total Tasks</p>
+            <h2 id="total">0</h2>
+        </div>
+        <div class="stat">
+            <p>Pending Tasks</p>
+            <h2 id="pending">0</h2>
+        </div>
+        <div class="stat">
+            <p>Completed Tasks</p>
+            <h2 id="completed">0</h2>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2>Add New Task</h2>
+        <form id="taskForm">
+            <div class="form-grid">
+                <div>
+                    <label for="taskName">Task Name</label>
+                    <input id="taskName" name="taskName"
+                           placeholder="e.g. Complete Java Assignment"
+                           required maxlength="150">
+                </div>
+                <div>
+                    <label for="subject">Subject</label>
+                    <input id="subject" name="subject"
+                           placeholder="e.g. Java Programming"
+                           required maxlength="80">
+                </div>
+                <div>
+                    <label for="deadline">Deadline</label>
+                    <input id="deadline" name="deadline"
+                           type="date" required>
+                </div>
+                <div>
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority">
+                        <option value="High">High</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="primary" id="addButton" type="submit">
+                    + Add Task
+                </button>
+            </div>
+            <p id="message" role="status"></p>
+        </form>
+    </section>
+
+    <section class="panel">
+        <h2>My Tasks</h2>
+        <div class="toolbar">
+            <input id="search" placeholder="Search tasks or subjects...">
+            <select id="statusFilter">
+                <option value="All">All statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+            </select>
+            <select id="priorityFilter">
+                <option value="All">All priorities</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+        </div>
+        <div id="taskList">
+            <p class="empty">Loading tasks...</p>
+        </div>
+    </section>
+</main>
+
+<footer>Student Task Planner · Stay organized and keep learning</footer>
+
+<script>
+const contextPath = window.location.pathname.substring(
+    0, window.location.pathname.lastIndexOf("/")
+);
+const tasksUrl = contextPath + "/tasks";
+
+const form = document.getElementById("taskForm");
+const taskList = document.getElementById("taskList");
+const message = document.getElementById("message");
+const addButton = document.getElementById("addButton");
+
+let tasks = [];
+
+function showMessage(text, isError = false) {
+    message.textContent = text;
+    message.style.color = isError ? "#b91c1c" : "#15803d";
+}
+
+function renderTasks() {
+    document.getElementById("total").textContent = tasks.length;
+    document.getElementById("pending").textContent =
+        tasks.filter(t => t.status === "Pending").length;
+    document.getElementById("completed").textContent =
+        tasks.filter(t => t.status === "Completed").length;
+
+    const search = document.getElementById("search").value.toLowerCase();
+    const status = document.getElementById("statusFilter").value;
+    const priority = document.getElementById("priorityFilter").value;
+
+    const filtered = tasks.filter(t =>
+        (String(t.taskName || t.task_name || "").toLowerCase().includes(search) ||
+         String(t.subject || "").toLowerCase().includes(search)) &&
+        (status === "All" || t.status === status) &&
+        (priority === "All" || t.priority === priority)
+    );
+
+    taskList.replaceChildren();
+
+    if (!filtered.length) {
+        const empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = tasks.length
+            ? "No tasks match your filters."
+            : "No tasks yet. Add your first task above.";
+        taskList.appendChild(empty);
+        return;
+    }
+
+    filtered.forEach(t => {
+        const card = document.createElement("div");
+        card.className = "task" + (t.status === "Completed" ? " completed" : "");
+
+        const details = document.createElement("div");
+        const title = document.createElement("h3");
+        title.textContent = t.taskName || t.task_name || "";
+        const subject = document.createElement("p");
+        subject.textContent = "Subject: " + (t.subject || "");
+        const deadline = document.createElement("p");
+        deadline.textContent = "Deadline: " + String(t.deadline || "").substring(0, 10);
+        const badge = document.createElement("span");
+        badge.className = "badge" + (t.status === "Completed" ? " done" : "");
+        badge.textContent = t.status + " · " + t.priority;
+
+        details.append(title, subject, deadline, badge);
+
+        const actions = document.createElement("div");
+        actions.className = "task-actions";
+
+        const completeBtn = document.createElement("button");
+        completeBtn.className = "secondary";
+        completeBtn.textContent = t.status === "Completed" ? "Undo" : "Complete";
+        completeBtn.addEventListener("click", () => {
+            showMessage("Status updates need a matching servlet endpoint.", true);
+        });
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "danger";
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", () => {
+            showMessage("Delete needs a matching servlet endpoint.", true);
+        });
+
+        actions.append(completeBtn, deleteBtn);
+        card.append(details, actions);
+        taskList.appendChild(card);
+    });
+}
+
+async function loadTasks() {
+    try {
+        const response = await fetch(tasksUrl);
+        if (!response.ok) {
+            throw new Error("The server could not load tasks (HTTP " + response.status + ").");
+        }
+        tasks = await response.json();
+        renderTasks();
+    } catch (error) {
+        taskList.replaceChildren();
+        const warning = document.createElement("p");
+        warning.className = "empty";
+        warning.textContent =
+            "Could not load tasks from MySQL. Check that TaskServlet has a GET endpoint returning JSON. " +
+            error.message;
+        taskList.appendChild(warning);
+    }
+}
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    addButton.disabled = true;
+    showMessage("Saving task...");
+
+    try {
+        const response = await fetch(tasksUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+            body: new URLSearchParams(new FormData(form))
+        });
+
+        const result = await response.text();
+
+        if (!response.ok) {
+            throw new Error(result || "Could not save task.");
+        }
+
+        form.reset();
+        showMessage(result || "Task saved successfully!");
+        await loadTasks();
+    } catch (error) {
+        showMessage(
+            "Task was not saved. Check TaskServlet and its server logs. " + error.message,
+            true
+        );
+    } finally {
+        addButton.disabled = false;
+    }
+});
+
+["search", "statusFilter", "priorityFilter"].forEach(id => {
+    document.getElementById(id).addEventListener("input", renderTasks);
+    document.getElementById(id).addEventListener("change", renderTasks);
+});
+
+loadTasks();
+</script>
+</body>
+</html>
