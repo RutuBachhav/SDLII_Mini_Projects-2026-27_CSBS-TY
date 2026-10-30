@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Category - Product Registration</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo"><h2>ABC Technologies</h2><p>Product Registration</p></div>
+  <nav class="menu">
+    <div class="menu-title">Catalog</div>
+    <a href="index.html">Dashboard</a>
+    <a href="addCategory.html" class="active">Add Category</a>
+    <a href="addProduct.html">Add Product</a>
+    <a href="viewProducts.html">View Products</a>
+    <a href="updateProduct.html">Update Product</a>
+    <a href="deleteProduct.html">Delete Product</a>
+  </nav>
+</div>
+<div class="main">
+  <div class="topbar"><h2>Add Category</h2><div class="admin">Welcome, Admin</div></div>
+  <div class="content">
+    <div id="successBox"></div>
+    <div class="card form-card">
+      <h3>New Category</h3>
+      <form action="addCategory" method="post">
+        <label>Category Name</label>
+        <input type="text" name="name" placeholder="e.g. Electronics" minlength="2" maxlength="60" required>
+        <label>Description (optional)</label>
+        <textarea name="description" rows="3" maxlength="255" placeholder="Short description"></textarea>
+        <button class="btn" type="submit">Save Category</button>
+        <a class="btn secondary" href="index.html">Back</a>
+      </form>
+    </div>
+    <div class="footer">&copy; 2026 ABC Technologies - Product Registration</div>
+  </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>

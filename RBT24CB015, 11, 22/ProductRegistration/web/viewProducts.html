@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>View Products - Product Registration</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo"><h2>ABC Technologies</h2><p>Product Registration</p></div>
+  <nav class="menu">
+    <div class="menu-title">Catalog</div>
+    <a href="index.html">Dashboard</a>
+    <a href="addCategory.html">Add Category</a>
+    <a href="addProduct.html">Add Product</a>
+    <a href="viewProducts.html" class="active">View Products</a>
+    <a href="updateProduct.html">Update Product</a>
+    <a href="deleteProduct.html">Delete Product</a>
+  </nav>
+</div>
+<div class="main">
+  <div class="topbar"><h2>View Products</h2><div class="admin">Welcome, Admin</div></div>
+  <div class="content">
+    <div class="toolbar">
+      <form id="searchForm" class="filters">
+        <input type="text" id="q" placeholder="Search name or SKU">
+        <select id="filterCat"><option value="">All Categories</option></select>
+        <button class="btn" type="submit">Search</button>
+      </form>
+      <div><a class="btn secondary" href="viewProducts">Server-rendered table</a></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>ID</th><th>SKU</th><th>Name</th><th>Category</th><th>Price</th><th>Qty</th><th>Value</th><th>Status</th><th></th></tr></thead>
+        <tbody id="productRows"><tr><td colspan="9">Loading...</td></tr></tbody>
+      </table>
+    </div>
+    <div class="footer">&copy; 2026 ABC Technologies - Product Registration</div>
+  </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>

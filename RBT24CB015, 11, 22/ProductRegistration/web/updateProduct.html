@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Update Product - Product Registration</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo"><h2>ABC Technologies</h2><p>Product Registration</p></div>
+  <nav class="menu">
+    <div class="menu-title">Catalog</div>
+    <a href="index.html">Dashboard</a>
+    <a href="addCategory.html">Add Category</a>
+    <a href="addProduct.html">Add Product</a>
+    <a href="viewProducts.html">View Products</a>
+    <a href="updateProduct.html" class="active">Update Product</a>
+    <a href="deleteProduct.html">Delete Product</a>
+  </nav>
+</div>
+<div class="main">
+  <div class="topbar"><h2>Update Product</h2><div class="admin">Welcome, Admin</div></div>
+  <div class="content">
+    <div class="card form-card">
+      <h3>Step 1: Find Product</h3>
+      <p class="hint">Fill <b>either</b> the ID or the Name / SKU. If several products match, you can pick one.</p>
+      <form action="getProductForUpdate" method="post">
+        <label>Product ID</label>
+        <input type="number" name="id" min="1" placeholder="e.g. 1">
+        <label>Product Name or SKU</label>
+        <input type="text" name="name" maxlength="80" placeholder="e.g. Laptop or LAP-001">
+        <div class="btn-row"><button class="btn" type="submit">Retrieve Product</button><a class="btn secondary" href="index.html">Back</a></div>
+      </form>
+    </div>
+    <div class="footer">&copy; 2026 ABC Technologies - Product Registration</div>
+  </div>
+</div>
+</body>
+</html>

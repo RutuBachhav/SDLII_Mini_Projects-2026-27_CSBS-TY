@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard - Product Registration</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo"><h2>ABC Technologies</h2><p>Product Registration</p></div>
+  <nav class="menu">
+    <div class="menu-title">Catalog</div>
+    <a href="index.html" class="active">Dashboard</a>
+    <a href="addCategory.html">Add Category</a>
+    <a href="addProduct.html">Add Product</a>
+    <a href="viewProducts.html">View Products</a>
+    <a href="updateProduct.html">Update Product</a>
+    <a href="deleteProduct.html">Delete Product</a>
+  </nav>
+</div>
+<div class="main">
+  <div class="topbar"><h2>Dashboard</h2><div class="admin">Welcome, Admin</div></div>
+  <div class="content">
+    <div class="welcome">
+      <h1>Product Registration System</h1>
+      <p>Manage categories and products. Same workflow as the Employee app, with search, stock alerts and a REST API.</p>
+    </div>
+    <div class="cards">
+      <div class="card accent"><h3>Products</h3><div class="big" id="prodCount">-</div><p>Total registered products</p></div>
+      <div class="card green"><h3>Stock Value</h3><div class="big" id="valueCount">-</div><p>Sum of price x quantity</p></div>
+      <div class="card orange"><h3>Low Stock</h3><div class="big" id="lowCount">-</div><p>Products with qty &lt; 10</p></div>
+      <div class="card accent"><h3>Categories</h3><div class="big" id="catCount">-</div><p>Product categories</p></div>
+    </div>
+    <div class="card">
+      <h3>Quick Actions</h3>
+      <div class="quick-links">
+        <a href="addCategory.html">+ Add Category<span>Create a new product category</span></a>
+        <a href="addProduct.html">+ Add Product<span>Register a product with SKU</span></a>
+        <a href="viewProducts.html">&#8801; View Products<span>Search, filter and check stock</span></a>
+        <a href="viewProducts.html">&#8646; Server Table<span>Servlet-rendered list: <b>viewProducts</b></span></a>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3>REST API</h3>
+      <p><b>GET</b> api/products &nbsp; <b>GET</b> api/products/{id} &nbsp; <b>POST</b> api/products &nbsp; <b>PUT</b> api/products/{id} &nbsp; <b>DELETE</b> api/products/{id}<br>
+      <b>GET / POST</b> api/categories</p>
+    </div>
+    <div class="footer">&copy; 2026 ABC Technologies - Product Registration</div>
+  </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>

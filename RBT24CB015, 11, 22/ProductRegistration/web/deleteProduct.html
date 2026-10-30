@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delete Product - Product Registration</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo"><h2>ABC Technologies</h2><p>Product Registration</p></div>
+  <nav class="menu">
+    <div class="menu-title">Catalog</div>
+    <a href="index.html">Dashboard</a>
+    <a href="addCategory.html">Add Category</a>
+    <a href="addProduct.html">Add Product</a>
+    <a href="viewProducts.html">View Products</a>
+    <a href="updateProduct.html">Update Product</a>
+    <a href="deleteProduct.html" class="active">Delete Product</a>
+  </nav>
+</div>
+<div class="main">
+  <div class="topbar"><h2>Delete Product</h2><div class="admin">Welcome, Admin</div></div>
+  <div class="content">
+    <div class="alert error">Warning: deletion is permanent.</div>
+    <div class="grid-2">
+      <div class="card form-card">
+        <h3>Delete by ID</h3>
+        <form action="deleteProduct" method="post" onsubmit="return confirm('Delete this product permanently?')">
+          <label>Product ID</label>
+          <input type="number" name="id" min="1" placeholder="e.g. 1" required>
+          <div class="btn-row"><button class="btn danger" type="submit">Delete Product</button><a class="btn secondary" href="index.html">Back</a></div>
+        </form>
+      </div>
+      <div class="card form-card">
+        <h3>Delete by Product Name</h3>
+        <form action="deleteProduct" method="post" onsubmit="return confirm('Delete this product permanently?')">
+          <label>Product Name</label>
+          <input type="text" name="name" maxlength="80" placeholder="e.g. Wireless Mouse" required>
+          <div class="hint">The full product name must match exactly (case is ignored).</div>
+          <div class="btn-row"><button class="btn danger" type="submit">Delete Product</button><a class="btn secondary" href="index.html">Back</a></div>
+        </form>
+      </div>
+    </div>
+    <div class="footer">&copy; 2026 ABC Technologies - Product Registration</div>
+  </div>
+</div>
+</body>
+</html>
