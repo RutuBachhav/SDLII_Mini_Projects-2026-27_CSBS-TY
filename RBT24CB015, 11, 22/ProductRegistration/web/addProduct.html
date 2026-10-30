@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Product - Product Registration</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo"><h2>ABC Technologies</h2><p>Product Registration</p></div>
+  <nav class="menu">
+    <div class="menu-title">Catalog</div>
+    <a href="index.html">Dashboard</a>
+    <a href="addCategory.html">Add Category</a>
+    <a href="addProduct.html" class="active">Add Product</a>
+    <a href="viewProducts.html">View Products</a>
+    <a href="updateProduct.html">Update Product</a>
+    <a href="deleteProduct.html">Delete Product</a>
+  </nav>
+</div>
+<div class="main">
+  <div class="topbar"><h2>Add Product</h2><div class="admin">Welcome, Admin</div></div>
+  <div class="content">
+    <div class="card form-card">
+      <h3>New Product</h3>
+      <form action="saveProduct" method="post">
+        <label>SKU (3-20 chars: letters, digits, dash)</label>
+        <input type="text" name="sku" placeholder="e.g. LAP-001" pattern="[A-Za-z0-9-]{3,20}" required>
+        <label>Product Name</label>
+        <input type="text" name="name" placeholder="e.g. Laptop Pro 15" minlength="3" maxlength="80" required>
+        <label>Category</label>
+        <select name="categoryId" id="categoryId" required>
+          <option value="">-- Select Category --</option>
+        </select>
+        <p class="hint">No categories yet? <a href="addCategory.html">Create one first</a>. List loads live from the database (no hardcoded IDs).</p>
+        <div class="grid-2">
+          <div><label>Price ($)</label><input type="number" name="price" step="0.01" min="0.01" placeholder="999.99" required></div>
+          <div><label>Quantity</label><input type="number" name="quantity" min="0" placeholder="50" required></div>
+        </div>
+        <label>Description (optional)</label>
+        <textarea name="description" rows="3" maxlength="500" placeholder="Key features..."></textarea>
+        <div class="btn-row"><button class="btn" type="submit">Save Product</button><a class="btn secondary" href="index.html">Back</a></div>
+      </form>
+    </div>
+    <div class="footer">&copy; 2026 ABC Technologies - Product Registration</div>
+  </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
